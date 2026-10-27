@@ -1,0 +1,71 @@
+:root {
+  --bg: #232323;
+  --surface: #2d2d2d;
+  --border: #3c3c3c;
+  --text: #d6d6d6;
+  --muted: #8c8c8c;
+  --accent: #5aa9e6;
+  --pass: #6cc56c;
+  --fail: #e66a5a;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 12px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+body { padding: 8px 10px 16px; }
+
+header { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+h1 { font-size: 14px; margin: 0; }
+h2 { font-size: 12px; margin: 0 0 6px; color: var(--accent); }
+.tag { color: var(--muted); font-size: 11px; }
+
+section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+p { margin: 0 0 6px; }
+.muted { color: var(--muted); }
+code { font-size: 11px; }
+
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 6px; }
+
+button, select {
+  background: #3a3a3a;
+  color: var(--text);
+  border: 1px solid #4a4a4a;
+  border-radius: 3px;
+  padding: 3px 8px;
+  font: inherit;
+}
+button:hover { border-color: var(--accent); }
+button:disabled { opacity: 0.5; }
+
+.report {
+  max-height: 220px;
+  overflow: auto;
+  margin: 0;
+  padding: 6px;
+  background: #1b1b1b;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font: 11px/1.35 ui-monospace, Consolas, Menlo, monospace;
+  white-space: pre-wrap;
+  user-select: text;
+}
+
+.pass { color: var(--pass); }
+.fail { color: var(--fail); }
+
+/* Popup window (spike 2, CEP route) */
+body.popup { padding: 8px; }
+body.popup .row button { flex: 1; }

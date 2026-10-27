@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionManifest Version="7.0" ExtensionBundleId="com.afterease" ExtensionBundleVersion="0.0.1" ExtensionBundleName="AfterEase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ExtensionList>
+    <Extension Id="com.afterease.panel" Version="0.0.1" />
+    <Extension Id="com.afterease.popup" Version="0.0.1" />
+  </ExtensionList>
+  <ExecutionEnvironment>
+    <HostList>
+      <!-- AE 2024 (24.x) to AE 2026 (26.x) -->
+      <Host Name="AEFT" Version="[24.0,26.99]" />
+    </HostList>
+    <LocaleList>
+      <Locale Code="All" />
+    </LocaleList>
+    <RequiredRuntimeList>
+      <RequiredRuntime Name="CSXS" Version="11.0" />
+    </RequiredRuntimeList>
+  </ExecutionEnvironment>
+  <DispatchInfoList>
+    <Extension Id="com.afterease.panel">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./client/index.html</MainPath>
+          <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+          <AutoVisible>true</AutoVisible>
+        </Lifecycle>
+        <UI>
+          <Type>Panel</Type>
+          <Menu>AfterEase</Menu>
+          <Geometry>
+            <Size>
+              <Height>560</Height>
+              <Width>340</Width>
+            </Size>
+            <MinSize>
+              <Height>200</Height>
+              <Width>240</Width>
+            </MinSize>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+    <!-- Phase 0 spike 2: a modeless window the panel opens and tries to place at the cursor. No menu entry. -->
+    <Extension Id="com.afterease.popup">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./client/popup.html</MainPath>
+          <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+          <AutoVisible>true</AutoVisible>
+        </Lifecycle>
+        <UI>
+          <Type>Modeless</Type>
+          <Geometry>
+            <Size>
+              <Height>150</Height>
+              <Width>220</Width>
+            </Size>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+  </DispatchInfoList>
+</ExtensionManifest>

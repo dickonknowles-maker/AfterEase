@@ -1,0 +1,16 @@
+{
+  "name": "afterease",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Easing panel for After Effects (CEP). See SPEC.md.",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=21"
+  },
+  "scripts": {
+    "test": "node --test \"tests/unit/*.test.js\""
+  },
+  "devDependencies": {
+    "acorn": "^8.19.0"
+  }
+}
