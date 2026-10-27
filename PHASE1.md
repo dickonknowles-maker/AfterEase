@@ -1,6 +1,6 @@
 # Phase 1: core engine
 
-**Status (27 Oct 2026): built, and the gate's round-trip tests pass in AE 26.5 on Dickon's machine at 23.976, 25, 29.97 and 50 fps: 24 of 24 checks at each rate.** The report is `tests/ae/phase1/roundtrip-2026-10-27T10-28-43.txt`. One item needs Dickon's OK: colour properties work differently from SPEC.md (see "Needs your OK").
+**Status (27 Oct 2026): signed off.** The gate's round-trip tests pass in AE 26.5 on Dickon's machine at 23.976, 25, 29.97 and 50 fps: 24 of 24 checks at each rate. The report is `tests/ae/phase1/roundtrip-2026-10-27T10-28-43.txt`. Dickon approved the colour handling below, and SPEC.md now describes it.
 
 There is no new panel UI yet; that is phase 2. Phase 1 is the engine the UI will call: read the selected keys, work out the eases for a curve, write them in one undo step, and check what AE stored.
 
@@ -44,14 +44,14 @@ SPEC.md's acceptance checks this covers:
 - [x] Sampled values match the analytic curve within 0.1% of the segment's change
 - [x] Every user action is a single undo step (for applying a curve, the only action so far)
 
-## Needs your OK: colour
+## Colour (approved by Dickon, 27 Oct 2026)
 
 SPEC.md says multi-dimensional properties including colour get "v̄ per dimension; every dimension gets the same normalised curve". AE 26.5 doesn't work that way for colour:
 
 - A colour takes exactly **one** ease, not one per channel. AE refuses four: "Value array does not have 1 elements".
 - Its speed is in 0–255 units per second along the straight line between the two colours, alpha included. Measured: a 1-second change from [1, 0, 0, 1] to [0, 0.5, 1, 1] is 382.5 (= 255 × 1.5), and an HDR change to [3, 4, 0] reads correctly too.
 
-So `core/` treats colour as its own kind: one ease, value change = 255 × the RGBA distance, with no overshoot (like a path). It passes the same checks as every other kind. Nothing else in SPEC.md changes. If you're happy with this, I'll correct the line in SPEC.md; if not, colour can be left out of v1.
+So `core/` treats colour as its own kind: one ease, value change = 255 × the RGBA distance, with no overshoot (like a path). It passes the same checks as every other kind. SPEC.md's "Cases to handle" now has a Colour bullet saying this.
 
 ## Decisions made in phase 1
 

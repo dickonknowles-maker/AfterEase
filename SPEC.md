@@ -111,7 +111,7 @@ easekit/
 
 Store every ease as a normalised cubic-bezier per key pair (x1, y1, x2, y2, as in CSS) and convert it to AE's per-key speed and influence at write time, using that pair's time and value change.
 
-**AE's model.** Each key has an in ease and an out ease, each an array of KeyframeEase objects with speed (property units per second) and influence (0.1 to 100, percent of the segment's duration). The array has one entry per dimension for multi-dimensional non-spatial properties such as Scale, and one entry for 1D and spatial properties such as Position ([ExtendScript KeyframeEase](https://after-effects-scripting-guide.readthedocs.io/other/keyframeease.html)).
+**AE's model.** Each key has an in ease and an out ease, each an array of KeyframeEase objects with speed (property units per second) and influence (0.1 to 100, percent of the segment's duration). The array has one entry per dimension for multi-dimensional non-spatial properties such as Scale, and one entry for 1D, spatial and colour properties such as Position ([ExtendScript KeyframeEase](https://after-effects-scripting-guide.readthedocs.io/other/keyframeease.html)).
 
 **Conversion** for the pair from key A to key B:
 
@@ -128,7 +128,8 @@ Reading existing eases reverses this: x1 = I / 100 and y1 = S × x1 / v̄, and l
 **Cases to handle**
 
 - **1D and separated dimensions:** the formulas apply directly.
-- **Multi-dimensional, non-spatial** (Scale, colour, points without spatial interpolation): compute v̄ per dimension; every dimension gets the same normalised curve.
+- **Multi-dimensional, non-spatial** (Scale and other two- or three-value properties): compute v̄ per dimension; every dimension gets the same normalised curve.
+- **Colour:** one ease, not one per channel (AE refuses more). The value change is the straight-line distance between the two RGBA colours in 0–255 units, so speed is 0–255 units per second along that line; for example, 1 second from [1, 0, 0, 1] to [0, 0.5, 1, 1] is 382.5. Like spatial speed, it is a magnitude, so colours can't overshoot. Measured in AE 26.5 in phase 1.
 - **Spatial** (Position, Anchor Point, 3D points): one ease. The value change is the arc length of the spatial bezier between the keys, built from the key values plus `keyOutSpatialTangent` of A and `keyInSpatialTangent` of B. Integrate numerically (Gauss-Legendre or dense sampling). Speed is pixels per second along the path.
 - **No value change** (v̄ = 0): speeds are 0 whatever the curve, so only influence carries. Keep the intent anyway so Curve Repair can reapply it if the values change.
 - **Overshoot** (y outside 0 to 1): 1D and separated properties only. Spatial speed is a magnitude, so Position overshoot needs separated dimensions or the Excite expression. Verify that AE accepts negative speeds on 1D properties.

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <title>AfterEase diagnostics</title>
+  <link rel="stylesheet" href="spikes.css">
+</head>
+<body>
+  <header>
+    <h1>AfterEase</h1>
+    <span class="tag">Phase 0 diagnostics · <a href="index.html">back to the panel</a></span>
+  </header>
+
+  <section id="connection">
+    <h2>Connection</h2>
+    <p id="env" class="muted">Starting…</p>
+    <div class="row">
+      <button id="ping">Round trip</button>
+      <span id="ping-result" class="muted"></span>
+    </div>
+  </section>
+
+  <section id="spike-hotkey">
+    <h2>1. Hotkey</h2>
+    <p class="muted">Copy the files in <code>launchers/</code> to AE's Scripts folder, restart AE, bind them under Edit &gt; Keyboard Shortcuts, then press the shortcut with this panel open.</p>
+    <p id="hotkey-status" class="muted">Listening. Nothing received yet.</p>
+  </section>
+
+  <section id="spike-popup">
+    <h2>2. Popup at cursor</h2>
+    <div class="row">
+      <label for="popup-route">Route</label>
+      <select id="popup-route">
+        <option value="scriptui">ScriptUI palette</option>
+        <option value="cep">CEP modeless window</option>
+      </select>
+    </div>
+    <div class="row">
+      <button id="cursor-read">Read cursor ×10</button>
+      <button id="popup-open">Open at cursor in 2 s</button>
+    </div>
+    <p class="muted">After pressing “Open”, move the pointer over the timeline. The window should appear with its top-left corner at the pointer.</p>
+    <div class="row">
+      <span class="muted">Was it at the pointer?</span>
+      <button class="verdict" data-verdict="yes">Yes</button>
+      <button class="verdict" data-verdict="offset">Offset</button>
+      <button class="verdict" data-verdict="no">Did not open</button>
+    </div>
+  </section>
+
+  <section id="spike-ease">
+    <h2>3. Ease model</h2>
+    <div class="row">
+      <label for="ease-fps">Frame rate</label>
+      <select id="ease-fps"></select>
+      <button id="ease-run">Run</button>
+      <button id="ease-run-all">Run all rates</button>
+    </div>
+    <p class="muted">Each run adds a throwaway comp to the open project. Undo removes it.</p>
+    <pre id="ease-report" class="report" hidden></pre>
+  </section>
+
+  <section id="log-section">
+    <h2>Log</h2>
+    <div class="row">
+      <button id="log-save">Save log and reports</button>
+      <span id="log-saved" class="muted"></span>
+    </div>
+    <pre id="log" class="report"></pre>
+  </section>
+
+  <script src="lib/cep.js"></script>
+  <script src="lib/host.js"></script>
+  <script src="spikes.js"></script>
+</body>
+</html>

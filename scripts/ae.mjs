@@ -66,12 +66,14 @@ async function devtoolsPage(port) {
   return list.find(t => t.webSocketDebuggerUrl && /\.html/.test(t.url)) || list.find(t => t.webSocketDebuggerUrl);
 }
 
-export async function evaluate(port, expression) {
+// One DevTools Protocol call to a CEP page (e.g. Input.dispatchMouseEvent,
+// Page.captureScreenshot). Returns the call's result.
+export async function cdp(port, method, params = {}) {
   const page = await devtoolsPage(port);
   if (!page) throw new Error(`No debuggable page on port ${port}`);
   const ws = new WebSocket(page.webSocketDebuggerUrl);
   await new Promise((resolve, reject) => { ws.onopen = resolve; ws.onerror = reject; });
-  ws.send(JSON.stringify({ id: 1, method: 'Runtime.evaluate', params: { expression, awaitPromise: true, returnByValue: true } }));
+  ws.send(JSON.stringify({ id: 1, method, params }));
   const reply = await new Promise(resolve => {
     ws.onmessage = ev => {
       const msg = JSON.parse(ev.data);
@@ -79,6 +81,12 @@ export async function evaluate(port, expression) {
     };
   });
   ws.close();
+  if (reply.error) throw new Error(`${method}: ${reply.error.message}`);
+  return reply.result;
+}
+
+export async function evaluate(port, expression) {
+  const reply = { result: await cdp(port, 'Runtime.evaluate', { expression, awaitPromise: true, returnByValue: true }) };
   const failed = reply.result && reply.result.exceptionDetails;
   if (failed) throw new Error(failed.exception && failed.exception.description ? failed.exception.description : JSON.stringify(failed));
   return reply.result && reply.result.result ? reply.result.result.value : undefined;

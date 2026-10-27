@@ -1,0 +1,24 @@
+AfterEase phase 2 panel check, 2026-10-27T10:47:30.263Z
+Overall: PASS
+
+PASS  Panel loads and reaches After Effects
+      Select keys, then pick a preset or shape the curve.
+PASS  Clicking a preset eases the selected keys
+      Eased 3 segments on 1 property. Worst handle difference 1.1e-15
+PASS  One Edit > Undo puts the keys back
+PASS  Dragging a handle applies on release
+      Eased 3 segments on 1 property. Curve 0.229, 0.421, 0.4, 1; worst difference from the numbers shown 1.1e-4
+PASS  Tab mid-drag switches to the speed view and keeps the curve
+      view speed; 0.238, 0.442, 0.4, 1 then 0.238, 0.442, 0.4, 1
+PASS  Read keys loads the selected curve
+      Read the curve from Scale: Scale, keys 1 to 2. Linear keys 0.167, 0.167, 0.833, 0.833; eased keys 0.26, 0.239, 0.4, 1
+PASS  Scope In writes only the ease into each key
+      key 1 out LINEAR; key 2 in BEZIER at 60%
+PASS  A preset on Position 2D
+      worst handle difference 7.8e-16
+PASS  A preset on Colour
+      worst handle difference 0.0e+0
+PASS  Saving a preset writes it to the presets file
+      ["Panel test"]
+PASS  Right-click menu deletes a preset
+      menu opened; 0 left

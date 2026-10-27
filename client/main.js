@@ -1,233 +1,447 @@
 'use strict';
 
-// Phase 0 panel: ExtendScript round trip plus the three spikes in SPEC.md.
-// Everything the spikes find goes into the log, which "Save log and reports"
-// writes to Documents/AfterEase spike reports for SPIKES.md.
+// The AfterEase panel: a curve editor with value and speed views, presets,
+// reading a curve from keys, and applying it to the selected keys with a
+// scope. Each apply is one host read and one write, so one undo step; all the
+// maths is in core/.
 
 (function () {
   const $ = id => document.getElementById(id);
   const cep = window.cep;
   const host = window.host;
 
-  const logLines = [];
-  const reports = {};
-  let hostInfo = null;
-
-  function stamp() {
-    return new Date().toISOString().slice(11, 23);
-  }
-
-  function log(text) {
-    logLines.push(`${stamp()}  ${text}`);
-    $('log').textContent = logLines.join('\n');
-    $('log').scrollTop = $('log').scrollHeight;
-  }
-
-  function fail(where, err) {
-    log(`${where} failed: ${err && err.message ? err.message : err}`);
+  function say(text, tone = '') {
+    const el = $('status');
+    el.textContent = text;
+    el.title = text;
+    el.className = `status ${tone}`;
   }
 
   if (!cep.available) {
-    $('env').textContent = 'Not running inside After Effects: CEP is not available.';
+    say('Open this panel in After Effects: Window > Extensions (Legacy) > AfterEase.');
     return;
   }
 
   const nodeRequire = cep.nodeRequire;
   const root = cep.extensionPath();
   const path = nodeRequire('path');
-  const fs = nodeRequire('fs');
-  const os = nodeRequire('os');
-  const spike = nodeRequire(path.join(root, 'client/spikes/easeModelSpike.js'));
-  const { CursorReader } = nodeRequire(path.join(root, 'client/lib/cursor.js'));
-  const cursor = new CursorReader();
+  const load = rel => nodeRequire(path.join(root, rel));
+  const { planApply, readCurve, verifyWrite } = load('core/apply.js');
+  const { BUILT_IN, isCurve } = load('core/presets.js');
+  const speed = load('core/speed.js');
+  const { createCurveEditor } = load('client/editor/curveEditor.js');
+  const { drawThumbnail } = load('client/editor/thumbnail.js');
+  const S = load('client/state/store.js');
+  const store = S.createStore({
+    fs: nodeRequire('fs'),
+    path,
+    dir: S.folder(process.env, process.platform, nodeRequire('os').homedir(), path),
+  });
 
-  // Match AE's panel colour.
+  let settings = store.loadSettings();
+  let userPresets = store.loadPresets();
+  let active = null; // the preset the curve came from, until it is edited
+  const FIELDS = ['x1', 'y1', 'x2', 'y2'];
+  const fallbackCurve = BUILT_IN.find(p => p.id === 'both-gentle').curve;
+
+  function saveSettings(change) {
+    settings = { ...settings, ...change };
+    try {
+      store.saveSettings(settings);
+    } catch (e) {
+      say(`Couldn't save settings to ${store.dir}: ${e.message}`, 'error');
+    }
+  }
+
+  function savePresets(list) {
+    userPresets = list;
+    try {
+      store.savePresets(list);
+    } catch (e) {
+      say(`Couldn't save presets to ${store.dir}: ${e.message}`, 'error');
+    }
+    renderPresets();
+  }
+
+  // --- Applying ----------------------------------------------------------------
+
+  let busy = false;
+  let queued = null;
+
+  async function apply(curve, name) {
+    if (busy) {
+      queued = { curve, name };
+      return;
+    }
+    busy = true;
+    try {
+      const selection = await host.call('readSelection');
+      const plan = planApply(selection, curve, { scope: settings.scope, undoName: `AfterEase: ${name || 'apply curve'}` });
+      if (!plan.writes.length) {
+        say(plan.notices.join(' '), 'note');
+        return;
+      }
+      const problems = verifyWrite(plan, await host.call('writeKeys', plan));
+      const segments = plan.writes.reduce((n, w) => n + w.segments.length, 0);
+      const props = plan.writes.length;
+      const done = `Eased ${segments} ${segments === 1 ? 'segment' : 'segments'} on ${props} ${props === 1 ? 'property' : 'properties'}.`;
+      say([done, ...plan.notices, ...problems].join(' '), problems.length ? 'warn' : plan.notices.length ? 'note' : 'ok');
+    } catch (e) {
+      say(`After Effects reported a problem: ${e.message}`, 'error');
+    } finally {
+      busy = false;
+      if (queued) {
+        const q = queued;
+        queued = null;
+        apply(q.curve, q.name);
+      }
+    }
+  }
+
+  // --- Curve, editor and numbers -------------------------------------------------
+
+  const fmt = v => String(Math.round(v * 1000) / 1000);
+
+  function showNumbers(curve) {
+    for (const k of FIELDS) if (document.activeElement !== $(k)) $(k).value = fmt(curve[k]);
+  }
+
+  function markActive() {
+    for (const t of document.querySelectorAll('.tile[data-id]')) t.classList.toggle('on', t.dataset.id === active);
+  }
+
+  // The curve changed and is final: remember it, and apply it if set to.
+  function commit(curve, name) {
+    saveSettings({ curve });
+    if (settings.applyOnRelease) apply(curve, name);
+  }
+
+  let lastLive = 0;
+  const editor = createCurveEditor($('curve'), {
+    onInput(curve) {
+      active = null;
+      markActive();
+      showNumbers(curve);
+      if (settings.live && Date.now() - lastLive > 120) {
+        lastLive = Date.now();
+        apply(curve);
+      }
+    },
+    onCommit(curve) {
+      showNumbers(curve);
+      commit(curve);
+    },
+    onView(view) {
+      showView(view);
+    },
+  });
+
+  function setCurve(curve, presetId) {
+    editor.set(curve);
+    active = presetId;
+    markActive();
+    showNumbers(editor.get());
+  }
+
+  for (const k of FIELDS) {
+    $(k).addEventListener('keydown', e => {
+      if (e.key === 'Enter') e.target.blur();
+      if (e.key === 'Escape') {
+        showNumbers(editor.get());
+        e.target.blur();
+      }
+    });
+    $(k).addEventListener('change', () => {
+      const c = { ...editor.get() };
+      const v = Number(String($(k).value).replace(',', '.'));
+      if (!Number.isFinite(v)) {
+        say(`${k} needs a number.`, 'note');
+        showNumbers(c);
+        return;
+      }
+      c[k] = v;
+      const settled = speed.settle(c);
+      if (settled[k] !== v) say(`${k} was kept between ${k === 'x1' ? '0.001 and 1' : '0 and 0.999'}, AE's influence range.`, 'note');
+      setCurve(settled, null);
+      commit(editor.get());
+    });
+  }
+
+  // --- Views and scope -------------------------------------------------------------
+
+  function showView(view) {
+    for (const b of $('view').querySelectorAll('button')) b.classList.toggle('on', b.dataset.view === view);
+    if (settings.view !== view) saveSettings({ view });
+  }
+
+  $('view').addEventListener('click', e => {
+    const v = e.target.dataset && e.target.dataset.view;
+    if (!v) return;
+    editor.setView(v);
+    showView(v);
+  });
+
+  function showScope() {
+    for (const b of $('scope').querySelectorAll('button')) b.classList.toggle('on', b.dataset.scope === settings.scope);
+  }
+
+  $('scope').addEventListener('click', e => {
+    const s = e.target.dataset && e.target.dataset.scope;
+    if (!s) return;
+    saveSettings({ scope: s });
+    showScope();
+  });
+
+  $('apply').addEventListener('click', () => apply(editor.get(), active ? presetName(active) : null));
+
+  $('read').addEventListener('click', async () => {
+    try {
+      const found = readCurve(await host.call('readSelection'));
+      if (!found) {
+        say('Select two neighbouring keys to read their curve.', 'note');
+        return;
+      }
+      setCurve(found.curve, null);
+      saveSettings({ curve: editor.get() });
+      say(`Read the curve from ${found.label}.`, 'ok');
+    } catch (e) {
+      say(`After Effects reported a problem: ${e.message}`, 'error');
+    }
+  });
+
+  // --- Presets -----------------------------------------------------------------------
+
+  const presetName = id => (BUILT_IN.find(p => p.id === id) || userPresets.find(p => p.id === id) || {}).name || null;
+
+  function pick(p) {
+    setCurve(p.curve, p.id);
+    commit(editor.get(), p.group && p.group !== 'Linear' ? `${p.group}, ${p.name.toLowerCase()}` : p.name);
+  }
+
+  function tile(p, user) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'tile';
+    b.dataset.id = p.id;
+    b.title = user ? `${p.name} (right-click to rename, replace or delete; drag to reorder)` : p.hint;
+    const canvas = document.createElement('canvas');
+    canvas.className = 'thumb';
+    b.appendChild(canvas);
+    if (user) {
+      const name = document.createElement('span');
+      name.className = 'name';
+      name.textContent = p.name;
+      b.appendChild(name);
+    }
+    b.addEventListener('click', () => pick(p));
+    if (user) wireUserTile(b, p);
+    return { el: b, draw: () => drawThumbnail(canvas, p.curve) };
+  }
+
+  function renderPresets() {
+    const box = $('presets');
+    box.textContent = '';
+    const drawn = [];
+    const groups = [];
+    for (const p of BUILT_IN) {
+      let g = groups.find(x => x.name === p.group);
+      if (!g) groups.push(g = { name: p.group, presets: [] });
+      g.presets.push(p);
+    }
+    for (const g of groups) {
+      const row = document.createElement('div');
+      row.className = 'preset-row';
+      const label = document.createElement('span');
+      label.className = 'label';
+      label.textContent = g.name;
+      row.appendChild(label);
+      for (const p of g.presets) {
+        const t = tile(p, false);
+        row.appendChild(t.el);
+        drawn.push(t);
+      }
+      box.appendChild(row);
+    }
+    const heading = document.createElement('div');
+    heading.className = 'preset-heading';
+    heading.textContent = 'My presets';
+    box.appendChild(heading);
+    const mine = document.createElement('div');
+    mine.className = 'user-presets';
+    for (const p of userPresets) {
+      const t = tile(p, true);
+      mine.appendChild(t.el);
+      drawn.push(t);
+    }
+    const add = document.createElement('button');
+    add.type = 'button';
+    add.className = 'tile add';
+    add.textContent = '+';
+    add.title = 'Save the current curve as a preset';
+    add.addEventListener('click', () => {
+      const id = `p${Date.now().toString(36)}`;
+      savePresets(S.addPreset(userPresets, S.uniqueName(userPresets), editor.get(), id));
+      active = id;
+      markActive();
+      rename(id);
+    });
+    mine.appendChild(add);
+    box.appendChild(mine);
+    // Thumbnails need their laid-out size.
+    requestAnimationFrame(() => drawn.forEach(t => t.draw()));
+    markActive();
+  }
+
+  // Inline rename: Enter or clicking away keeps it, Esc cancels.
+  function rename(id) {
+    const el = document.querySelector(`.user-presets .tile[data-id="${id}"] .name`);
+    if (!el) return;
+    const input = document.createElement('input');
+    input.value = userPresets.find(p => p.id === id).name;
+    el.textContent = '';
+    el.appendChild(input);
+    input.focus();
+    input.select();
+    let done = false;
+    const finish = keep => {
+      if (done) return;
+      done = true;
+      if (keep) savePresets(S.renamePreset(userPresets, id, input.value));
+      else renderPresets();
+    };
+    input.addEventListener('click', e => e.stopPropagation());
+    input.addEventListener('keydown', e => {
+      e.stopPropagation();
+      if (e.key === 'Enter') finish(true);
+      if (e.key === 'Escape') finish(false);
+    });
+    input.addEventListener('blur', () => finish(true));
+  }
+
+  let menuFor = null;
+
+  function wireUserTile(b, p) {
+    b.draggable = true;
+    b.addEventListener('contextmenu', e => {
+      e.preventDefault();
+      menuFor = p.id;
+      openMenu($('context'), e.clientX, e.clientY);
+    });
+    b.addEventListener('dblclick', e => {
+      e.preventDefault();
+      rename(p.id);
+    });
+    b.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('text/plain', p.id);
+      e.dataTransfer.effectAllowed = 'move';
+      b.classList.add('dragging');
+    });
+    b.addEventListener('dragend', () => b.classList.remove('dragging'));
+    b.addEventListener('dragover', e => {
+      e.preventDefault();
+      b.classList.add('drop-before');
+    });
+    b.addEventListener('dragleave', () => b.classList.remove('drop-before'));
+    b.addEventListener('drop', e => {
+      e.preventDefault();
+      const id = e.dataTransfer.getData('text/plain');
+      const to = userPresets.filter(q => q.id !== id).findIndex(q => q.id === p.id);
+      if (id && id !== p.id) savePresets(S.movePreset(userPresets, id, to));
+    });
+  }
+
+  // Dropping on the + tile moves a preset to the end.
+  $('presets').addEventListener('dragover', e => {
+    if (e.target.classList && e.target.classList.contains('add')) e.preventDefault();
+  });
+  $('presets').addEventListener('drop', e => {
+    if (!(e.target.classList && e.target.classList.contains('add'))) return;
+    e.preventDefault();
+    const id = e.dataTransfer.getData('text/plain');
+    if (id) savePresets(S.movePreset(userPresets, id, userPresets.length));
+  });
+
+  $('context').addEventListener('click', e => {
+    const act = e.target.dataset && e.target.dataset.act;
+    if (!act || !menuFor) return;
+    closeMenus();
+    if (act === 'rename') rename(menuFor);
+    if (act === 'replace') {
+      savePresets(S.replacePreset(userPresets, menuFor, editor.get()));
+      active = menuFor;
+      markActive();
+    }
+    if (act === 'delete') savePresets(S.removePreset(userPresets, menuFor));
+  });
+
+  // --- Menus ---------------------------------------------------------------------------
+
+  function openMenu(menu, x, y) {
+    closeMenus();
+    menu.hidden = false;
+    const r = menu.getBoundingClientRect();
+    menu.style.left = `${Math.max(4, Math.min(x, window.innerWidth - r.width - 4))}px`;
+    menu.style.top = `${Math.max(4, Math.min(y, window.innerHeight - r.height - 4))}px`;
+  }
+
+  function closeMenus() {
+    $('settings').hidden = true;
+    $('context').hidden = true;
+  }
+
+  document.addEventListener('pointerdown', e => {
+    if (!e.target.closest('.menu') && e.target.id !== 'menu-button') closeMenus();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMenus();
+  });
+
+  $('menu-button').addEventListener('click', e => {
+    if (!$('settings').hidden) {
+      closeMenus();
+      return;
+    }
+    const r = e.target.getBoundingClientRect();
+    openMenu($('settings'), r.right - 220, r.bottom + 4);
+  });
+  $('opt-release').addEventListener('change', e => saveSettings({ applyOnRelease: e.target.checked }));
+  $('opt-live').addEventListener('change', e => saveSettings({ live: e.target.checked }));
+
+  // --- Theme and start-up ------------------------------------------------------------
+
   function applySkin() {
     const skin = cep.hostEnvironment().appSkinInfo;
     const c = skin && skin.panelBackgroundColor && skin.panelBackgroundColor.color;
-    if (c) document.documentElement.style.setProperty('--bg', `rgb(${c.red | 0}, ${c.green | 0}, ${c.blue | 0})`);
-  }
-
-  // --- Connection ---------------------------------------------------------
-
-  async function ping() {
-    const sent = { hello: 'from the panel', unicode: 'é – ✓', nested: { list: [1, 2.5, -3], flag: true, none: null } };
-    const started = performance.now();
-    try {
-      const r = await host.call('ping', sent);
-      const ms = (performance.now() - started).toFixed(1);
-      const same = JSON.stringify(r.echo) === JSON.stringify(sent);
-      hostInfo = r;
-      $('ping-result').textContent = `${same ? 'OK' : 'Echo differs'}, ${ms} ms`;
-      $('ping-result').className = same ? 'pass' : 'fail';
-      log(`Round trip ${same ? 'OK' : 'ECHO DIFFERS'} in ${ms} ms. AE ${r.appVersion} (${r.buildName}), ${r.os}, ` +
-        `ExtendScript ${r.extendScriptVersion}, native JSON before polyfill: ${r.hasNativeJSON}`);
-    } catch (e) {
-      $('ping-result').textContent = 'Failed';
-      $('ping-result').className = 'fail';
-      fail('Round trip', e);
+    if (!c) return;
+    const style = document.documentElement.style;
+    const shade = d => `rgb(${[c.red, c.green, c.blue].map(v => Math.max(0, Math.min(255, Math.round(v + d)))).join(', ')})`;
+    style.setProperty('--bg', shade(0));
+    const light = (0.2126 * c.red + 0.7152 * c.green + 0.0722 * c.blue) / 255 > 0.5;
+    document.documentElement.classList.toggle('light', light);
+    // On dark backgrounds, every tone is a step from AE's own panel colour.
+    const tones = { '--well': -9, '--surface': 10, '--surface-hover': 20, '--surface-on': 36, '--border': 22, '--grid': 1, '--grid-strong': 30 };
+    for (const [name, d] of Object.entries(tones)) {
+      if (light) style.removeProperty(name); else style.setProperty(name, shade(d));
     }
+    editor.draw();
+    renderPresets();
   }
-
-  // --- Spike 1: hotkey ----------------------------------------------------
-
-  let hotkeyCount = 0;
-
-  function onLauncher(data) {
-    hotkeyCount += 1;
-    const delay = data && data.sentAt ? Date.now() - data.sentAt : NaN;
-    const command = data && data.command ? data.command : String(data);
-    $('hotkey-status').textContent = `Received ${hotkeyCount} event(s). Last: “${command}” after ${delay} ms.`;
-    $('hotkey-status').className = 'pass';
-    log(`Spike 1: launcher event “${command}” received ${delay} ms after the script sent it`);
-    if (command === 'popup') openPopupAtCursor(0);
-  }
-
-  // --- Spike 2: popup at cursor --------------------------------------------
-
-  let pendingPlacement = null;
-
-  async function readCursorTimes() {
-    const times = [];
-    try {
-      let last;
-      for (let i = 0; i < 10; i++) {
-        last = await cursor.read();
-        times.push(last.ms);
-      }
-      const first = times[0].toFixed(1);
-      const rest = times.slice(1);
-      const avg = (rest.reduce((a, b) => a + b, 0) / rest.length).toFixed(1);
-      log(`Spike 2: cursor read on ${process.platform}: first ${first} ms, then ${avg} ms on average; ` +
-        `last position ${last.x}, ${last.y}; devicePixelRatio ${window.devicePixelRatio}`);
-    } catch (e) {
-      fail('Spike 2 cursor read', e);
-    }
-  }
-
-  async function openPopupAtCursor(delayMs) {
-    const route = $('popup-route').value;
-    if (delayMs) await new Promise(r => setTimeout(r, delayMs));
-    let p;
-    try {
-      p = await cursor.read();
-    } catch (e) {
-      fail('Spike 2 cursor read', e);
-      return;
-    }
-    log(`Spike 2: cursor at ${p.x}, ${p.y} (read in ${p.ms.toFixed(1)} ms); opening ${route}`);
-    if (route === 'scriptui') {
-      try {
-        const r = await host.call('spikeScriptUIPopup', { x: p.x, y: p.y });
-        log(`Spike 2: ScriptUI palette asked for ${r.requested.join(', ')}, location now ${r.location.join(', ')}, ` +
-          `frame bounds ${r.frameBounds.join(', ')}`);
-      } catch (e) {
-        fail('Spike 2 ScriptUI palette', e);
-      }
-    } else {
-      pendingPlacement = { x: p.x, y: p.y, at: Date.now() };
-      cep.openExtension('com.afterease.popup');
-      // If the window is already open it will not send "ready" again.
-      cep.dispatch('com.afterease.popup.place', pendingPlacement);
-    }
-  }
-
-  function onPopupReady() {
-    log('Spike 2: CEP popup window loaded');
-    if (pendingPlacement) cep.dispatch('com.afterease.popup.place', pendingPlacement);
-  }
-
-  function onPopupReport(r) {
-    if (!r || !r.requested) return;
-    pendingPlacement = null;
-    log(`Spike 2: CEP popup asked for ${r.requested.x}, ${r.requested.y}; screenX/Y before ${r.before.x}, ${r.before.y}, ` +
-      `after moveTo ${r.after.x}, ${r.after.y}; window ${r.outer.w}×${r.outer.h}; devicePixelRatio ${r.dpr}; ` +
-      `${Date.now() - r.requested.at} ms from cursor read to placed`);
-  }
-
-  // --- Spike 3: ease model -------------------------------------------------
-
-  async function runEase(fpsLabel) {
-    const plan = spike.buildPlan(fpsLabel);
-    log(`Spike 3: running ${plan.cases.length} cases at ${fpsLabel} fps`);
-    try {
-      const started = performance.now();
-      const result = await host.call('spikeEaseModel', plan);
-      const analysis = spike.analyse(plan, result);
-      const report = spike.formatReport(analysis, hostInfo || {});
-      reports[fpsLabel] = { report, result };
-      $('ease-report').hidden = false;
-      $('ease-report').textContent = report;
-      log(`Spike 3: ${fpsLabel} fps ${analysis.pass ? 'PASS' : 'FAIL'} (${(performance.now() - started).toFixed(0)} ms, comp “${result.compName}”)`);
-    } catch (e) {
-      fail(`Spike 3 at ${fpsLabel} fps`, e);
-    }
-  }
-
-  async function runEaseAll() {
-    for (const label of spike.FRAME_RATE_LABELS) await runEase(label);
-    $('ease-report').textContent = Object.keys(reports).map(k => reports[k].report).join('\n\n');
-  }
-
-  // --- Saving ----------------------------------------------------------------
-
-  function saveAll() {
-    try {
-      const dir = path.join(os.homedir(), 'Documents', 'AfterEase spike reports');
-      fs.mkdirSync(dir, { recursive: true });
-      const name = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
-      const file = path.join(dir, `spikes-${name}.txt`);
-      const parts = ['AfterEase phase 0 log', '', logLines.join('\n')];
-      for (const k of Object.keys(reports)) parts.push('', '', reports[k].report);
-      fs.writeFileSync(file, parts.join('\n'), 'utf8');
-      // Raw host results, in case the analysis itself needs checking later.
-      fs.writeFileSync(path.join(dir, `spike3-raw-${name}.json`),
-        JSON.stringify(Object.fromEntries(Object.entries(reports).map(([k, v]) => [k, v.result])), null, 1), 'utf8');
-      $('log-saved').textContent = `Saved to ${file}`;
-      log(`Saved to ${file}`);
-    } catch (e) {
-      fail('Save', e);
-    }
-  }
-
-  // --- Start-up ----------------------------------------------------------------
 
   async function start() {
     applySkin();
-    const env = cep.hostEnvironment();
-    $('env').textContent = `${env.appName} ${env.appVersion}, extension at ${root}`;
-    log(`Panel loaded: ${env.appName} ${env.appVersion}, locale ${env.appUILocale}, extension at ${root}`);
-
-    for (const label of spike.FRAME_RATE_LABELS) {
-      const o = document.createElement('option');
-      o.value = label;
-      o.textContent = `${label} fps`;
-      if (label === '25') o.selected = true;
-      $('ease-fps').appendChild(o);
-    }
-
-    $('ping').onclick = ping;
-    $('cursor-read').onclick = readCursorTimes;
-    $('popup-open').onclick = () => openPopupAtCursor(2000);
-    $('ease-run').onclick = () => runEase($('ease-fps').value);
-    $('ease-run-all').onclick = runEaseAll;
-    $('log-save').onclick = saveAll;
-    for (const b of document.querySelectorAll('.verdict')) {
-      b.onclick = () => log(`Spike 2: user says route “${$('popup-route').value}” → ${b.dataset.verdict}`);
-    }
-
-    cep.on('com.afterease.launcher', onLauncher);
-    cep.on('com.afterease.popup.ready', onPopupReady);
-    cep.on('com.afterease.popup.report', onPopupReport);
     cep.on('com.adobe.csxs.events.ThemeColorChanged', applySkin);
-    window.addEventListener('unload', () => cursor.stop());
-
+    setCurve(isCurve(settings.curve) ? settings.curve : fallbackCurve, null);
+    editor.setView(settings.view);
+    showView(settings.view);
+    showScope();
+    $('opt-release').checked = settings.applyOnRelease;
+    $('opt-live').checked = settings.live;
+    renderPresets();
     try {
       await host.load(root);
-      log('Host layer loaded');
-      await ping();
+      say('Select keys, then pick a preset or shape the curve.');
     } catch (e) {
-      fail('Start-up', e);
+      say(`The panel couldn't reach After Effects: ${e.message}`, 'error');
     }
   }
 

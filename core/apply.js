@@ -164,6 +164,30 @@ function planApply(selection, curve, { scope = 'both', undoName = 'AfterEase: ap
   return { undoName, writes, notices };
 }
 
+// The curve of the first selected pair, for "Read from keys". Pairs of
+// selected keys come first; otherwise a lone selected key's segment.
+// Returns { curve, label } or null.
+function readCurve(selection) {
+  if (!selection || !selection.comp) return null;
+  for (const pairsOnly of [true, false]) {
+    for (const prop of selection.properties) {
+      const kind = kindOf(prop.valueType);
+      if (!kind || !prop.keys) continue;
+      for (const [s, sides] of targetSegments(prop.keys)) {
+        if (pairsOnly && !(sides.out && sides.in)) continue;
+        const a = prop.keys[s];
+        const b = prop.keys[s + 1];
+        if (a.outType === 'HOLD' || a.roving || b.roving) continue;
+        // The first ease entry whose value changes; without a change there is no curve.
+        const d = segment.change(kind, a, b).findIndex(v => v !== 0);
+        if (d < 0) continue;
+        return { curve: segment.curves(kind, a, b)[d], label: `${prop.layerName}: ${prop.name}, keys ${s + 1} to ${s + 2}` };
+      }
+    }
+  }
+  return null;
+}
+
 // Compares what writeKeys reports AE stored with the plan. Returns notices
 // for anything AE changed or refused.
 function verifyWrite(plan, result) {
@@ -192,4 +216,4 @@ function verifyWrite(plan, result) {
   return notices;
 }
 
-module.exports = { kindOf, targetSegments, planApply, verifyWrite };
+module.exports = { kindOf, targetSegments, planApply, readCurve, verifyWrite };

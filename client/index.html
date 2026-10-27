@@ -2,72 +2,59 @@
 <html lang="en-GB">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AfterEase</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>AfterEase</h1>
-    <span class="tag">Phase 0: spikes</span>
-  </header>
+  <main class="panel">
+    <div class="toolbar">
+      <div class="seg" id="view" role="group" aria-label="Graph">
+        <button type="button" data-view="value" title="Value graph: how far along the change is over time (Tab switches, even mid-drag)">Value</button>
+        <button type="button" data-view="speed" title="Speed graph: how fast the change happens over time, where the dashed line is the average (Tab switches, even mid-drag)">Speed</button>
+      </div>
+      <span class="spacer"></span>
+      <button type="button" id="read" title="Load the curve of the first selected pair of keys">Read keys</button>
+      <button type="button" id="menu-button" class="icon" title="Settings" aria-haspopup="true">⋯</button>
+    </div>
 
-  <section id="connection">
-    <h2>Connection</h2>
-    <p id="env" class="muted">Starting…</p>
-    <div class="row">
-      <button id="ping">Round trip</button>
-      <span id="ping-result" class="muted"></span>
-    </div>
-  </section>
+    <div class="well"><canvas id="curve" tabindex="0" aria-label="Curve editor"></canvas></div>
 
-  <section id="spike-hotkey">
-    <h2>1. Hotkey</h2>
-    <p class="muted">Copy the files in <code>launchers/</code> to AE's Scripts folder, restart AE, bind them under Edit &gt; Keyboard Shortcuts, then press the shortcut with this panel open.</p>
-    <p id="hotkey-status" class="muted">Listening. Nothing received yet.</p>
-  </section>
+    <div class="numbers">
+      <label title="Start handle: time (influence, 0 to 1)">x1<input id="x1" inputmode="decimal" autocomplete="off"></label>
+      <label title="Start handle: value (below 0 overshoots backwards)">y1<input id="y1" inputmode="decimal" autocomplete="off"></label>
+      <label title="End handle: time (0 to 1)">x2<input id="x2" inputmode="decimal" autocomplete="off"></label>
+      <label title="End handle: value (above 1 overshoots)">y2<input id="y2" inputmode="decimal" autocomplete="off"></label>
+    </div>
 
-  <section id="spike-popup">
-    <h2>2. Popup at cursor</h2>
-    <div class="row">
-      <label for="popup-route">Route</label>
-      <select id="popup-route">
-        <option value="scriptui">ScriptUI palette</option>
-        <option value="cep">CEP modeless window</option>
-      </select>
+    <div class="apply-row">
+      <div class="seg" id="scope" role="group" aria-label="Which side of each key">
+        <button type="button" data-scope="in" title="In only: the ease into each key, at the end of each segment">In</button>
+        <button type="button" data-scope="both" title="Both sides of each key">Both</button>
+        <button type="button" data-scope="out" title="Out only: the ease out of each key, at the start of each segment">Out</button>
+      </div>
+      <button type="button" id="apply" class="primary" title="Apply the curve to the selected keys">Apply</button>
     </div>
-    <div class="row">
-      <button id="cursor-read">Read cursor ×10</button>
-      <button id="popup-open">Open at cursor in 2 s</button>
-    </div>
-    <p class="muted">After pressing “Open”, move the pointer over the timeline. The window should appear with its top-left corner at the pointer.</p>
-    <div class="row">
-      <span class="muted">Was it at the pointer?</span>
-      <button class="verdict" data-verdict="yes">Yes</button>
-      <button class="verdict" data-verdict="offset">Offset</button>
-      <button class="verdict" data-verdict="no">Did not open</button>
-    </div>
-  </section>
 
-  <section id="spike-ease">
-    <h2>3. Ease model</h2>
-    <div class="row">
-      <label for="ease-fps">Frame rate</label>
-      <select id="ease-fps"></select>
-      <button id="ease-run">Run</button>
-      <button id="ease-run-all">Run all rates</button>
-    </div>
-    <p class="muted">Each run adds a throwaway comp to the open project. Undo removes it.</p>
-    <pre id="ease-report" class="report" hidden></pre>
-  </section>
+    <section id="presets" aria-label="Presets"></section>
 
-  <section id="log-section">
-    <h2>Log</h2>
-    <div class="row">
-      <button id="log-save">Save log and reports</button>
-      <span id="log-saved" class="muted"></span>
-    </div>
-    <pre id="log" class="report"></pre>
-  </section>
+    <p class="status" id="status" role="status"></p>
+  </main>
+
+  <div class="menu" id="settings" hidden>
+    <label class="check"><input type="checkbox" id="opt-release"> Apply changes straight away</label>
+    <p class="hint">When a handle is let go, a preset is picked or a number is typed.</p>
+    <label class="check"><input type="checkbox" id="opt-live"> Apply while dragging</label>
+    <p class="hint">Each change while dragging is a separate undo step.</p>
+    <hr>
+    <a href="spikes.html" class="link">Phase 0 diagnostics</a>
+  </div>
+
+  <div class="menu" id="context" hidden>
+    <button type="button" data-act="rename">Rename</button>
+    <button type="button" data-act="replace">Replace with the current curve</button>
+    <button type="button" data-act="delete">Delete</button>
+  </div>
 
   <script src="lib/cep.js"></script>
   <script src="lib/host.js"></script>
