@@ -14,7 +14,8 @@ An easing panel for Adobe After Effects 2024 to 2026, built as a CEP extension. 
 | `host/` | ExtendScript (ES3): JSON polyfill, the adapter, and the spike scripts |
 | `launchers/` | Scripts for AE's Scripts folder, for hotkeys |
 | `tests/unit/` | Node tests |
-| `scripts/` | `install-dev.ps1` for Windows |
+| `tests/ae/phase0/` | Log and raw data from the phase 0 run in AE 26.5 |
+| `scripts/` | `install-dev.ps1` for Windows; `ae.mjs` drives AE and the panel for tests (Node 22 or later) |
 
 ## Develop
 

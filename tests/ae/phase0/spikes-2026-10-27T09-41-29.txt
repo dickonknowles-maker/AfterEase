@@ -1,0 +1,216 @@
+AfterEase phase 0 log
+
+09:41:20.607  Panel loaded: AEFT 26.5, locale en_US, extension at C:/Users/dicko/AppData/Roaming/Adobe/CEP/extensions/com.afterease
+09:41:20.648  Host layer loaded
+09:41:20.655  Round trip OK in 6.6 ms. AE 26.5x89 (26.5x89), Windows/64 10.0  , ExtendScript 4.5.6, native JSON before polyfill: true
+09:41:24.622  Spike 3: running 8 cases at 23.976 fps
+09:41:24.696  Spike 3: 23.976 fps FAIL (73 ms, comp “AfterEase spike - ease model 23.976023976024 fps”)
+09:41:24.698  Spike 3: running 8 cases at 25 fps
+09:41:24.779  Spike 3: 25 fps PASS (81 ms, comp “AfterEase spike - ease model 25 fps”)
+09:41:24.781  Spike 3: running 8 cases at 29.97 fps
+09:41:24.863  Spike 3: 29.97 fps FAIL (82 ms, comp “AfterEase spike - ease model 29.97002997003 fps”)
+09:41:24.865  Spike 3: running 8 cases at 50 fps
+09:41:24.935  Spike 3: 50 fps PASS (69 ms, comp “AfterEase spike - ease model 50 fps”)
+09:41:25.153  Spike 1: launcher event “ping” received 27 ms after the script sent it
+09:41:25.474  Spike 1: launcher event “ping” received 22 ms after the script sent it
+09:41:25.783  Spike 1: launcher event “ping” received 20 ms after the script sent it
+09:41:26.101  Spike 1: launcher event “ping” received 20 ms after the script sent it
+09:41:26.408  Spike 1: launcher event “ping” received 20 ms after the script sent it
+09:41:26.896  Spike 2: cursor read on win32: first 189.5 ms, then 0.1 ms on average; last position 1680, 1351; devicePixelRatio 1
+09:41:26.986  Spike 1: launcher event “popup” received 22 ms after the script sent it
+09:41:26.987  Spike 2: cursor at 1680, 1351 (read in 0.7 ms); opening scriptui
+09:41:27.010  Spike 2: ScriptUI palette asked for 1680, 1351, location now 1680, 1351, frame bounds 1672, 1320, 1874, 1459
+09:41:28.277  Spike 1: launcher event “popup” received 26 ms after the script sent it
+09:41:28.278  Spike 2: cursor at 1680, 1351 (read in 0.3 ms); opening cep
+09:41:28.795  Spike 2: CEP popup window loaded
+09:41:29.067  Spike 2: CEP popup asked for 1680, 1351; screenX/Y before 2458, 1036, after moveTo 2458, 1036; window 220×150; devicePixelRatio 1; 789 ms from cursor read to placed
+
+
+AfterEase spike 3: ease model, 25 fps
+After Effects 26.5x89 on Windows/64 10.0  
+Overall: PASS (tolerance 0.1000% of segment change, 0.001 on read-back curve)
+
+model = AE samples vs analytic cubic from the eases AE stored
+pipeline = AE samples vs the curve we asked for
+read-back = largest difference in x1, y1, x2, y2 after reading the eases back
+
+PASS  Opacity, ease in-out [1d]
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 1.11e-16
+      segment 2: model 0.0023%, pipeline 0.0023%, read-back 1.39e-16
+
+PASS  Rotation, strong ease [1d]
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 4.16e-17
+
+PASS  Rotation, overshoot (negative speeds) [1d]
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 0.00e+0
+
+PASS  Rotation, handles crossing (x1 > x2) [1d]
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 5.55e-17
+
+PASS  Scale, per dimension (Z unchanged) [multi]
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 5.55e-17
+        dimension 2 has no change; max drift 0.00e+0
+      segment 2: model 0.0000%, pipeline 0.0000%, read-back 0.00e+0
+        dimension 2 has no change; max drift 0.00e+0
+
+PASS  Position 2D, straight path [spatial]
+      segment 1: model 0.0024%, pipeline 0.0024%, read-back 5.55e-17
+        path length 1500.000 px; error if AE moved by curve parameter instead of arc length: 9.6228%
+
+PASS  Position 2D, curved path [spatial]
+      segment 1: model 0.0009%, pipeline 0.0009%, read-back 1.11e-16
+        path length 863.541 px; error if AE moved by curve parameter instead of arc length: 6.6261%
+      segment 2: model 0.0012%, pipeline 0.0012%, read-back 3.33e-16
+        path length 1015.610 px; error if AE moved by curve parameter instead of arc length: 2.3402%
+
+PASS  Position 3D, curved path [spatial]
+      segment 1: model 0.0008%, pipeline 0.0008%, read-back 0.00e+0
+        path length 1061.560 px; error if AE moved by curve parameter instead of arc length: 4.2795%
+
+
+AfterEase spike 3: ease model, 50 fps
+After Effects 26.5x89 on Windows/64 10.0  
+Overall: PASS (tolerance 0.1000% of segment change, 0.001 on read-back curve)
+
+model = AE samples vs analytic cubic from the eases AE stored
+pipeline = AE samples vs the curve we asked for
+read-back = largest difference in x1, y1, x2, y2 after reading the eases back
+
+PASS  Opacity, ease in-out [1d]
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 1.11e-16
+      segment 2: model 0.0000%, pipeline 0.0000%, read-back 1.67e-16
+
+PASS  Rotation, strong ease [1d]
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 4.16e-17
+
+PASS  Rotation, overshoot (negative speeds) [1d]
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 0.00e+0
+
+PASS  Rotation, handles crossing (x1 > x2) [1d]
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 5.55e-17
+
+PASS  Scale, per dimension (Z unchanged) [multi]
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 5.55e-17
+        dimension 2 has no change; max drift 0.00e+0
+      segment 2: model 0.0000%, pipeline 0.0000%, read-back 0.00e+0
+        dimension 2 has no change; max drift 0.00e+0
+
+PASS  Position 2D, straight path [spatial]
+      segment 1: model 0.0006%, pipeline 0.0006%, read-back 5.55e-17
+        path length 1500.000 px; error if AE moved by curve parameter instead of arc length: 9.6209%
+
+PASS  Position 2D, curved path [spatial]
+      segment 1: model 0.0009%, pipeline 0.0009%, read-back 1.11e-16
+        path length 863.541 px; error if AE moved by curve parameter instead of arc length: 6.6261%
+      segment 2: model 0.0012%, pipeline 0.0012%, read-back 3.33e-16
+        path length 1015.610 px; error if AE moved by curve parameter instead of arc length: 2.3402%
+
+PASS  Position 3D, curved path [spatial]
+      segment 1: model 0.0008%, pipeline 0.0008%, read-back 0.00e+0
+        path length 1061.560 px; error if AE moved by curve parameter instead of arc length: 4.2795%
+
+
+AfterEase spike 3: ease model, 23.976 fps
+After Effects 26.5x89 on Windows/64 10.0  
+Overall: FAIL (tolerance 0.1000% of segment change, 0.001 on read-back curve)
+
+model = AE samples vs analytic cubic from the eases AE stored
+pipeline = AE samples vs the curve we asked for
+read-back = largest difference in x1, y1, x2, y2 after reading the eases back
+
+FAIL  Opacity, ease in-out [1d]
+      error: key 2 time moved: 1.001 → 1.001001001001
+      error: key 3 time moved: 2.5025 → 2.5025025025025
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 1.11e-16
+      segment 2: model 0.0000%, pipeline 0.0000%, read-back 1.00e-7
+
+FAIL  Rotation, strong ease [1d]
+      error: key 2 time moved: 1.2095416666666665 → 1.20954287620954
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 4.16e-17
+
+FAIL  Rotation, overshoot (negative speeds) [1d]
+      error: key 2 time moved: 1.001 → 1.001001001001
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 4.00e-7
+
+FAIL  Rotation, handles crossing (x1 > x2) [1d]
+      error: key 2 time moved: 1.001 → 1.001001001001
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 2.00e-7
+
+FAIL  Scale, per dimension (Z unchanged) [multi]
+      error: key 2 time moved: 1.001 → 1.001001001001
+      error: key 3 time moved: 2.002 → 2.002002002002
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 5.55e-17
+        dimension 2 has no change; max drift 0.00e+0
+      segment 2: model 0.0000%, pipeline 0.0000%, read-back 0.00e+0
+        dimension 2 has no change; max drift 0.00e+0
+
+FAIL  Position 2D, straight path [spatial]
+      error: key 2 time moved: 1.5014999999999998 → 1.5015015015015
+      segment 1: model 0.0006%, pipeline 0.0006%, read-back 5.55e-17
+        path length 1500.000 px; error if AE moved by curve parameter instead of arc length: 9.6209%
+
+FAIL  Position 2D, curved path [spatial]
+      error: key 2 time moved: 1.001 → 1.001001001001
+      error: key 3 time moved: 2.2105416666666664 → 2.21054387721054
+      segment 1: model 0.0009%, pipeline 0.0009%, read-back 1.11e-16
+        path length 863.541 px; error if AE moved by curve parameter instead of arc length: 6.6261%
+      segment 2: model 0.0012%, pipeline 0.0012%, read-back 3.00e-7
+        path length 1015.610 px; error if AE moved by curve parameter instead of arc length: 2.3402%
+
+FAIL  Position 3D, curved path [spatial]
+      error: key 2 time moved: 1.4180833333333331 → 1.41808475141808
+      segment 1: model 0.0008%, pipeline 0.0008%, read-back 0.00e+0
+        path length 1061.560 px; error if AE moved by curve parameter instead of arc length: 4.2795%
+
+
+AfterEase spike 3: ease model, 29.97 fps
+After Effects 26.5x89 on Windows/64 10.0  
+Overall: FAIL (tolerance 0.1000% of segment change, 0.001 on read-back curve)
+
+model = AE samples vs analytic cubic from the eases AE stored
+pipeline = AE samples vs the curve we asked for
+read-back = largest difference in x1, y1, x2, y2 after reading the eases back
+
+FAIL  Opacity, ease in-out [1d]
+      error: key 2 time moved: 1.0010000000000001 → 1.001001001001
+      error: key 3 time moved: 2.5025 → 2.5025025025025
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 1.11e-16
+      segment 2: model 0.0000%, pipeline 0.0000%, read-back 1.00e-7
+
+FAIL  Rotation, strong ease [1d]
+      error: key 2 time moved: 1.2012 → 1.2012012012012
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 4.16e-17
+
+FAIL  Rotation, overshoot (negative speeds) [1d]
+      error: key 2 time moved: 1.0010000000000001 → 1.001001001001
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 4.00e-7
+
+FAIL  Rotation, handles crossing (x1 > x2) [1d]
+      error: key 2 time moved: 1.0010000000000001 → 1.001001001001
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 2.00e-7
+
+FAIL  Scale, per dimension (Z unchanged) [multi]
+      error: key 2 time moved: 1.0010000000000001 → 1.001001001001
+      error: key 3 time moved: 2.0020000000000002 → 2.002002002002
+      segment 1: model 0.0000%, pipeline 0.0000%, read-back 5.55e-17
+        dimension 2 has no change; max drift 0.00e+0
+      segment 2: model 0.0000%, pipeline 0.0000%, read-back 0.00e+0
+        dimension 2 has no change; max drift 0.00e+0
+
+FAIL  Position 2D, straight path [spatial]
+      error: key 2 time moved: 1.5015 → 1.5015015015015
+      segment 1: model 0.0006%, pipeline 0.0006%, read-back 5.55e-17
+        path length 1500.000 px; error if AE moved by curve parameter instead of arc length: 9.6209%
+
+FAIL  Position 2D, curved path [spatial]
+      error: key 2 time moved: 1.0010000000000001 → 1.001001001001
+      error: key 3 time moved: 2.2022 → 2.2022022022022
+      segment 1: model 0.0009%, pipeline 0.0009%, read-back 1.11e-16
+        path length 863.541 px; error if AE moved by curve parameter instead of arc length: 6.6261%
+      segment 2: model 0.0012%, pipeline 0.0012%, read-back 3.00e-7
+        path length 1015.610 px; error if AE moved by curve parameter instead of arc length: 2.3402%
+
+FAIL  Position 3D, curved path [spatial]
+      error: key 2 time moved: 1.4014 → 1.4014014014014
+      segment 1: model 0.0008%, pipeline 0.0008%, read-back 0.00e+0
+        path length 1061.560 px; error if AE moved by curve parameter instead of arc length: 4.2795%

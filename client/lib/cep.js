@@ -7,9 +7,25 @@
 (function (global) {
   const native = global.__adobe_cep__;
 
+  // CEP 12 in AE 26.5 delivers event data base64-encoded, whether a panel or
+  // ExtendScript sent it, with a line break every 76 characters. Anything
+  // that isn't valid base64 of UTF-8 is kept as it came.
+  function decodeBase64(text) {
+    const compact = text.replace(/\s+/g, '');
+    if (!/^[A-Za-z0-9+/]+={0,2}$/.test(compact) || compact.length % 4) return text;
+    try {
+      const bytes = Uint8Array.from(atob(compact), c => c.charCodeAt(0));
+      return new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+    } catch (e) {
+      return text;
+    }
+  }
+
   function parseData(data) {
     if (typeof data !== 'string') return data;
-    try { return JSON.parse(data); } catch (e) { return data; }
+    try { return JSON.parse(data); } catch (e) { /* not JSON as sent */ }
+    const text = decodeBase64(data);
+    try { return JSON.parse(text); } catch (e) { return text; }
   }
 
   const cep = {

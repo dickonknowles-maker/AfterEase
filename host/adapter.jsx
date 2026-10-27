@@ -5,7 +5,9 @@
 // {"ok":false,"error":"..."}. Host code reads and writes AE data and does no
 // easing maths; that lives in core/.
 
-var AfterEase = AfterEase || {};
+// On $.global, not a plain var: main.jsx loads this file with $.evalFile inside
+// a function, and there a var stays local to that function.
+var AfterEase = $.global.AfterEase = $.global.AfterEase || {};
 
 (function (A) {
     A.functions = A.functions || {};

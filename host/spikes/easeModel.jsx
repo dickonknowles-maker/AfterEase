@@ -33,6 +33,16 @@
         return out;
     }
 
+    // AE keeps Position as 3 values even on a 2D layer ([x, y, 0]), and
+    // setSpatialTangentsAtKey rejects tangents with fewer.
+    function padTo(list, n) {
+        var out = list.slice(0);
+        while (out.length < n) {
+            out.push(0);
+        }
+        return out;
+    }
+
     function runCase(comp, c) {
         var result = { name: c.name, kind: c.kind, errors: [], keys: [], samples: [] };
         var layer = comp.layers.addNull(comp.duration);
@@ -56,7 +66,7 @@
                 if (prop.isSpatial) {
                     prop.setSpatialContinuousAtKey(i, false);
                     prop.setSpatialAutoBezierAtKey(i, false);
-                    prop.setSpatialTangentsAtKey(i, key.inTangent, key.outTangent);
+                    prop.setSpatialTangentsAtKey(i, padTo(key.inTangent, prop.value.length), padTo(key.outTangent, prop.value.length));
                 }
                 prop.setTemporalEaseAtKey(i, toEases(ease.inEase), toEases(ease.outEase));
             } catch (e) {

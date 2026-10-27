@@ -1,5 +1,7 @@
 # Handover: run the phase 0 spikes in After Effects
 
+**Update, 27 Oct 2026.** A Claude session on Dickon's machine has run phase 0 in AE 26.5. The results, three harness fixes and AE findings are in SPIKES.md. Still open: the checks marked "Pending (Dickon)" in spikes 1 and 2, and a run of `install-dev.ps1` itself. Phase 1 has not started. The rest of this file is the original handover, kept for reference; the risk table below is answered in SPIKES.md.
+
 This is for a Claude Code session on Dickon's Windows 11 machine, where After Effects is installed. The previous session ran in a cloud container with no AE. It built phase 0 but could not run any of it in AE. Your job is to run the phase 0 spikes, record the results, and stop at the gate.
 
 ## Read first
