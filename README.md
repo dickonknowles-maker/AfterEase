@@ -2,7 +2,7 @@
 
 An easing panel for Adobe After Effects 2024 to 2026, built as a CEP extension. The full plan is in [SPEC.md](SPEC.md).
 
-**Current state: phase 0 (scaffold and spikes).** The panel is a diagnostics page for the three phase 0 spikes. How to run them, and space for the results, is in [SPIKES.md](SPIKES.md). To pick the work up on a machine with After Effects, start with [HANDOVER.md](HANDOVER.md).
+**Current state: phase 1 (core engine) built, waiting for sign-off.** The easing engine reads selected keys, applies a curve in one undo step and checks what AE stored; its results are in [PHASE1.md](PHASE1.md). The panel is still the phase 0 diagnostics page, whose results are in [SPIKES.md](SPIKES.md); the real UI comes in phase 2.
 
 ## Layout
 
@@ -14,7 +14,7 @@ An easing panel for Adobe After Effects 2024 to 2026, built as a CEP extension. 
 | `host/` | ExtendScript (ES3): JSON polyfill, the adapter, and the spike scripts |
 | `launchers/` | Scripts for AE's Scripts folder, for hotkeys |
 | `tests/unit/` | Node tests |
-| `tests/ae/phase0/` | Log and raw data from the phase 0 run in AE 26.5 |
+| `tests/ae/` | Phase 1 fixture and round-trip runner for AE (`roundtrip.mjs`), with reports in `phase1/`; phase 0 logs in `phase0/` |
 | `scripts/` | `install-dev.ps1` for Windows; `ae.mjs` drives AE and the panel for tests (Node 22 or later) |
 
 ## Develop

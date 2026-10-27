@@ -1,9 +1,13 @@
-// Drives After Effects for the phase 0 spikes on Dickon's machine, so they can run
-// without someone clicking. Needs Node 22 or later (built-in WebSocket).
+// Drives After Effects for AfterEase's spikes and tests on Dickon's machine, so they
+// can run without someone clicking. Needs Node 22 or later (built-in WebSocket).
+// tests/ae/roundtrip.mjs imports its helpers.
 //
 //   node scripts/ae.mjs start          take the lock, launch AE, open the AfterEase panel
+//   node scripts/ae.mjs open           open the panel in the running AE (if it isn't open)
 //   node scripts/ae.mjs eval "<js>"    evaluate in the panel (DevTools, port 8088) and print the result
-//   node scripts/ae.mjs popup "<js>"   the same in the spike 2 popup window (port 8089)
+//   node scripts/ae.mjs evalfile <f>   the same with the JavaScript in a file
+//   node scripts/ae.mjs jsx <f.jsx>    run an ExtendScript file in the panel's engine; prints what it returns
+//   node scripts/ae.mjs popup "<js>"   evaluate in the spike 2 popup window (port 8089)
 //   node scripts/ae.mjs run <file.jsx> hand a script to AE with -ro
 //   node scripts/ae.mjs quit           close the untitled project unsaved, quit AE, release the lock
 //
@@ -16,11 +20,12 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { spawn, execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
 const AFTERFX = process.env.AFTERFX || 'C:\\Program Files\\Adobe\\Adobe After Effects 2026\\Support Files\\AfterFX.exe';
 const LOCK = 'D:\\Plugins\\AE\\ae-in-use.txt';
-const OWNER = 'AfterEase phase 0';
-const PORTS = { panel: 8088, popup: 8089 };
+const OWNER = 'AfterEase';
+export const PORTS = { panel: 8088, popup: 8089 };
 const work = path.join(os.tmpdir(), 'afterease-ae');
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -61,7 +66,7 @@ async function devtoolsPage(port) {
   return list.find(t => t.webSocketDebuggerUrl && /\.html/.test(t.url)) || list.find(t => t.webSocketDebuggerUrl);
 }
 
-async function evaluate(port, expression) {
+export async function evaluate(port, expression) {
   const page = await devtoolsPage(port);
   if (!page) throw new Error(`No debuggable page on port ${port}`);
   const ws = new WebSocket(page.webSocketDebuggerUrl);
@@ -74,15 +79,31 @@ async function evaluate(port, expression) {
     };
   });
   ws.close();
-  if (reply.result && reply.result.exceptionDetails) throw new Error(JSON.stringify(reply.result.exceptionDetails, null, 1));
+  const failed = reply.result && reply.result.exceptionDetails;
+  if (failed) throw new Error(failed.exception && failed.exception.description ? failed.exception.description : JSON.stringify(failed));
   return reply.result && reply.result.result ? reply.result.result.value : undefined;
+}
+
+// Calls a host function through the panel (AfterEase.call); throws the host's error.
+export function hostCall(name, args = {}) {
+  return evaluate(PORTS.panel, `host.call(${JSON.stringify(name)}, ${JSON.stringify(args)})`);
+}
+
+// Runs an ExtendScript file through the panel. The file is parsed as ES3 here
+// first: a syntax error in AE opens a modal alert that stalls every later call.
+export async function runJsx(file) {
+  const source = fs.readFileSync(file, 'utf8');
+  const { parse } = await import('acorn');
+  parse(source, { ecmaVersion: 3, allowReserved: true });
+  const target = JSON.stringify(path.resolve(file).replace(/\\/g, '/'));
+  return evaluate(PORTS.panel, `cep.evalScript(${JSON.stringify(`$.evalFile(new File(${target}))`)})`);
 }
 
 async function start() {
   const h = holder();
   if (h && !mine(h)) throw new Error(`After Effects is in use: ${h}`);
   if (!h && aeState()) throw new Error('After Effects is already running for someone else');
-  fs.writeFileSync(LOCK, `${OWNER} (Claude session) since ${new Date().toISOString()}: running the AfterEase spikes in After Effects 2026\n`);
+  fs.writeFileSync(LOCK, `${OWNER} (Claude session) since ${new Date().toISOString()}: running AfterEase tests in After Effects 2026\n`);
   say('Lock taken');
   fs.mkdirSync(work, { recursive: true });
 
@@ -102,26 +123,33 @@ async function start() {
     return s && s.responding && / - .*\.aep/.test(s.title);
   }, 45 * 60 * 1000, 5000);
   say(`Ready ${((Date.now() - t0) / 1000).toFixed(0)} s after launch`);
+  await openPanel();
+}
 
-  // Open the panel from its menu item, and note whether the spike launchers are under File > Scripts.
+async function panelUp() {
+  try { return await devtoolsPage(PORTS.panel); } catch (e) { return null; }
+}
+
+// A panel left open in the workspace comes back by itself, and its menu item
+// toggles it, so the menu is used only when the panel hasn't appeared.
+async function openPanel() {
+  try {
+    await waitFor('the panel from the workspace', panelUp, 30 * 1000, 2000);
+    say(`Panel is up on port ${PORTS.panel} (from the workspace)`);
+    return;
+  } catch (e) { /* not in the workspace: open it from the menu */ }
   const report = path.join(work, 'open-panel.txt').replace(/\\/g, '/');
   fs.rmSync(report, { force: true });
   const jsx = path.join(work, 'open-panel.jsx');
   fs.writeFileSync(jsx, [
     '(function () {',
-    '    var lines = [];',
-    "    var names = ['AfterEase', 'AfterEase Spike Ping.jsx', 'AfterEase Spike Ping', 'AfterEase Spike Popup.jsx', 'AfterEase Spike Popup'];",
-    '    for (var i = 0; i < names.length; i += 1) {',
-    "        lines.push(names[i] + ' = ' + app.findMenuCommandId(names[i]));",
-    '    }',
     "    var id = app.findMenuCommandId('AfterEase');",
     '    if (id) {',
     '        app.executeCommand(id);',
     '    }',
     `    var f = new File(${JSON.stringify(report)});`,
-    "    f.encoding = 'UTF-8';",
     "    f.open('w');",
-    "    f.write(lines.join('\\n'));",
+    "    f.write('AfterEase menu command ' + id);",
     '    f.close();',
     '}());',
     '',
@@ -129,10 +157,8 @@ async function start() {
   runScript(jsx);
   say('Handed over open-panel.jsx');
   await waitFor('open-panel.jsx', () => fs.existsSync(report), 10 * 60 * 1000, 1000);
-  console.log(fs.readFileSync(report, 'utf8'));
-  await waitFor('the panel\'s DevTools port', async () => {
-    try { return await devtoolsPage(PORTS.panel); } catch (e) { return null; }
-  }, 3 * 60 * 1000, 2000);
+  say(fs.readFileSync(report, 'utf8'));
+  await waitFor('the panel\'s DevTools port', panelUp, 3 * 60 * 1000, 2000);
   say(`Panel is up on port ${PORTS.panel}`);
 }
 
@@ -156,18 +182,27 @@ async function quit() {
   say('After Effects closed; lock released');
 }
 
-const [what, arg] = process.argv.slice(2);
-try {
+async function main(what, arg) {
   if (what === 'start') await start();
+  else if (what === 'open') await openPanel();
   else if (what === 'eval' && arg) console.log(JSON.stringify(await evaluate(PORTS.panel, arg), null, 1));
+  else if (what === 'evalfile' && arg) console.log(JSON.stringify(await evaluate(PORTS.panel, fs.readFileSync(arg, 'utf8')), null, 1));
+  else if (what === 'jsx' && arg) console.log(await runJsx(arg));
   else if (what === 'popup' && arg) console.log(JSON.stringify(await evaluate(PORTS.popup, arg), null, 1));
   else if (what === 'run' && arg) runScript(arg);
   else if (what === 'quit') await quit();
   else {
-    console.log('Usage: node scripts/ae.mjs start | eval "<js>" | popup "<js>" | run <file.jsx> | quit');
+    console.log('Usage: node scripts/ae.mjs start | open | eval "<js>" | evalfile <f.js> | jsx <f.jsx> | popup "<js>" | run <f.jsx> | quit');
     process.exit(1);
   }
-} catch (e) {
-  console.error(e.message || e);
-  process.exit(1);
+}
+
+// Run as a command, not when imported.
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  try {
+    await main(...process.argv.slice(2));
+  } catch (e) {
+    console.error(e.message || e);
+    process.exit(1);
+  }
 }

@@ -6,6 +6,7 @@ function AfterEaseLoad(root) {
     var files = [
         'host/json2.jsx',
         'host/adapter.jsx',
+        'host/keySnapshot.jsx',
         'host/spikes/easeModel.jsx',
         'host/spikes/popup.jsx'
     ];

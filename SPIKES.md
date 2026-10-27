@@ -211,7 +211,7 @@ Tooling added: `scripts/ae.mjs` takes the shared lock `D:\Plugins\AE\ae-in-use.t
 ## Findings for phase 1 onwards
 
 - **Script shortcuts are bound by menu position** (`ExecuteScriptMenuItem01` to `20`), and AE's own 14 scripts come first. See the spike 1 verdict before designing phase 6 hotkeys or the phase 7 install script.
-- **Frame grid.** AE's 23.976 and 29.97 fps comps step exactly 1/23.976 s and 1/29.97 s per frame, and AE moves key times onto its grid. Take frame maths from `comp.frameDuration`, never from 1001-based rates.
+- **Frame grid.** AE's 23.976 and 29.97 fps comps step exactly 1/23.976 s and 1/29.97 s per frame, and AE moves key times onto its grid. Take frame maths from `comp.frameDuration`, never from 1001-based rates. Phase 1 found the grid is 1/1024 of a frame, not whole frames (PHASE1.md).
 - **2D Position is 3D to the API.** On a 2D layer, `keyValue`, `valueAtTime` and the spatial tangents all have three values, with z = 0. `readSelection` and `writeKeys` must expect that.
 - **AE keeps eases as written.** Negative speeds and influences that put x1 past x2 are stored and played back unchanged. `core/` needs no clamping for them.
 - **Spatial easing is by arc length**, confirmed: the arc-length model matches AE within 0.0024%, while moving by curve parameter would be off by 2.3% to 9.6%.

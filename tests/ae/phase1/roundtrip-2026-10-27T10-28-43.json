@@ -1,0 +1,2254 @@
+{
+ "rates": {
+  "25": [
+   {
+    "name": "Opacity",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000025994860162867893,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000025994860162867893
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.00001733089519939668,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000017330895199574315
+     },
+     {
+      "segment": 3,
+      "written": "both",
+      "problems": [],
+      "model": 0.00002599486016432451,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000025994860163969236
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Rotation",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 1.5080463232085026e-9,
+      "readBack": 4.163336342344337e-17,
+      "pipeline": 1.508046428474093e-9
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.000029793005686921485,
+      "readBack": 4.163336342344337e-17,
+      "pipeline": 0.000029793005686763585
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Scale",
+    "kind": "multi",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.00002490039844739537,
+      "readBack": 5.551115123125783e-16,
+      "pipeline": 0.000024900398447158523
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.000024900398453079713,
+      "readBack": 5.551115123125783e-16,
+      "pipeline": 0.000024900398453553408
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Position 2D",
+    "kind": "spatial",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000026454556356302223,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000026454556356302223
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.000011624258393034279,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000011624258393034279
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Position 3D",
+    "kind": "spatial",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.00001736794771945898,
+      "readBack": 6.106226635438361e-16,
+      "pipeline": 0.000017367947719460575
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.000025713106093987924,
+      "readBack": 2.220446049250313e-16,
+      "pipeline": 0.000025713106094227275
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "X Position",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.00002599486016330437,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000025994860163385576
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.000025994860164360033,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000025994860164075816
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Y Position",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 1.5080445336934644e-9,
+      "readBack": 4.163336342344337e-17,
+      "pipeline": 1.5080448179105588e-9
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.0000794345916190764,
+      "readBack": 4.163336342344337e-17,
+      "pipeline": 0.00007943459161765531
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Colour",
+    "kind": "colour",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.0000249003984448949,
+      "readBack": 0,
+      "pipeline": 0.00002490039844491032
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.000024900398450698267,
+      "readBack": 5.551115123125783e-17,
+      "pipeline": 0.000024900398450698267
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Hold",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000025994860162867893,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000025994860162867893
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 0,
+      "unchanged": 0
+     },
+     {
+      "segment": 3,
+      "written": "both",
+      "problems": [],
+      "model": 0.0000259948601637916,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.00002599486016364949
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Hold: Opacity: held segments were left as is."
+    ]
+   },
+   {
+    "name": "Roving",
+    "kind": "spatial",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000028813870934393842,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000028813870934544312
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 0.00003190408725373567,
+      "unchanged": 0
+     },
+     {
+      "segment": 3,
+      "written": "no",
+      "problems": [],
+      "model": 0.000026000731686969434,
+      "unchanged": 0
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Roving: Position: segments next to roving keys were left as is."
+    ]
+   },
+   {
+    "name": "Expression",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000025994860164107397,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000025994860164107397
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.00002599486015873885,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.00002599486015873885
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Expression: Rotation: has an expression, which may change what plays."
+    ]
+   },
+   {
+    "name": "Time Remap",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.00002490039844874059,
+      "readBack": 2.220446049250313e-16,
+      "pipeline": 0.0000249003984487961
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.00001660259911639983,
+      "readBack": 2.220446049250313e-16,
+      "pipeline": 0.00001660259911639983
+     },
+     {
+      "segment": 3,
+      "written": "both",
+      "problems": [],
+      "model": 1.2027917920912994e-9,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 1.2027917427480537e-9
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Continuous",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000025994860163002107,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000025994860163002107
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.000025994860163160007,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000025994860163317905
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Pair",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "no",
+      "problems": [],
+      "model": 0.00001627607719557389,
+      "unchanged": 0
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.00001733089519939668,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000017330895199574315
+     },
+     {
+      "segment": 3,
+      "written": "no",
+      "problems": [],
+      "model": 0.000016276077196142326,
+      "unchanged": 0
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Lone",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "no",
+      "problems": [],
+      "model": 0.00001627607719557389,
+      "unchanged": 0
+     },
+     {
+      "segment": 2,
+      "written": "in",
+      "problems": [],
+      "model": 0.000014040518714075745,
+      "readBack": 0
+     },
+     {
+      "segment": 3,
+      "written": "out",
+      "problems": [],
+      "model": 0.000020258638029790887,
+      "readBack": 1.6653345369377348e-16
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Scope in",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "in",
+      "problems": [],
+      "model": 0.000023970284704688538,
+      "readBack": 1.1102230246251565e-16
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 0.00001627607719538244,
+      "unchanged": 0
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Scope out",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "out",
+      "problems": [],
+      "model": 0.000023970284707135962,
+      "readBack": 0
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 0.00001627607719538244,
+      "unchanged": 0
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Overshoot 1D",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.00003449965771046158,
+      "readBack": 0,
+      "pipeline": 0.000034499657710501055
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Overshoot path",
+    "kind": "spatial",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000027272309275379787
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Overshoot path: Position: paths can't overshoot, so the curve was clipped at its ends."
+    ]
+   },
+   {
+    "name": "Overshoot colour",
+    "kind": "colour",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000025387834677333597
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Overshoot colour: Color: colours can't overshoot, so the curve was clipped at its ends."
+    ]
+   },
+   {
+    "name": "Bezier zero",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000025994860163002107,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000025994860163002107
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 0.000016290190680682112,
+      "unchanged": 0.0004442825910028806
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Selection across three layers",
+    "pass": true,
+    "problems": []
+   },
+   {
+    "name": "One undo step restores the keys",
+    "pass": true,
+    "problems": []
+   },
+   {
+    "name": "KeySnapshot: remove and restore each of 69 keys on 22 properties",
+    "pass": true,
+    "problems": [],
+    "notices": [
+     "Bezier zero: Bezier sides at influence 0 came back at 0.1, as expected"
+    ]
+   }
+  ],
+  "50": [
+   {
+    "name": "Opacity",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000055061556058007,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000055061556058007
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.00003670693585586804,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000036706935855690405
+     },
+     {
+      "segment": 3,
+      "written": "both",
+      "problems": [],
+      "model": 0.00005506155605718988,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.00005506155605718988
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Rotation",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 1.5080463232085026e-9,
+      "readBack": 4.163336342344337e-17,
+      "pipeline": 1.508046428474093e-9
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.0001192466515464711,
+      "readBack": 4.163336342344337e-17,
+      "pipeline": 0.000119246651546629
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Scale",
+    "kind": "multi",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.0000545042621675762,
+      "readBack": 3.885780586188048e-16,
+      "pipeline": 0.000054504262167753834
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.00005450426216269122,
+      "readBack": 3.885780586188048e-16,
+      "pipeline": 0.000054504262162780036
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Position 2D",
+    "kind": "spatial",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.00005882374512361571,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.00005882374512353808
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.000011624258393034279,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000011624258393034279
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Position 3D",
+    "kind": "spatial",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000037610417409560584,
+      "readBack": 3.3306690738754696e-16,
+      "pipeline": 0.00003761041740957182
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.000050653842292168566,
+      "readBack": 2.220446049250313e-16,
+      "pipeline": 0.000050653842291962724
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "X Position",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000055061556057743084,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000055061556057743084
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.00005506155605701224,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.00005506155605701224
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Y Position",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 1.5080445336934644e-9,
+      "readBack": 4.163336342344337e-17,
+      "pipeline": 1.5080448179105588e-9
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.0000794345916190764,
+      "readBack": 4.163336342344337e-17,
+      "pipeline": 0.00007943459161765531
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Colour",
+    "kind": "colour",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.00005450426216530179,
+      "readBack": 0,
+      "pipeline": 0.00005450426216530179
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.00005450426215996884,
+      "readBack": 4.440892098500626e-16,
+      "pipeline": 0.000054504262159841075
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Hold",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000055061556058007,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000055061556058007
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 0,
+      "unchanged": 0
+     },
+     {
+      "segment": 3,
+      "written": "both",
+      "problems": [],
+      "model": 0.000055061556058007,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000055061556058007
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Hold: Opacity: held segments were left as is."
+    ]
+   },
+   {
+    "name": "Roving",
+    "kind": "spatial",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.00006671786967643813,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.00006671786967627094
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 0.00004787715235458725,
+      "unchanged": 0
+     },
+     {
+      "segment": 3,
+      "written": "no",
+      "problems": [],
+      "model": 0.00004454794653543722,
+      "unchanged": 0
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Roving: Position: segments next to roving keys were left as is."
+    ]
+   },
+   {
+    "name": "Expression",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.00005506155605985441,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.00005506155605985441
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.00005506155605432797,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.00005506155605432797
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Expression: Rotation: has an expression, which may change what plays."
+    ]
+   },
+   {
+    "name": "Time Remap",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.00005450426216022097,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.00005450426216024873
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.00003633327749463788,
+      "readBack": 2.220446049250313e-16,
+      "pipeline": 0.00003633327749463788
+     },
+     {
+      "segment": 3,
+      "written": "both",
+      "problems": [],
+      "model": 1.202793124358929e-9,
+      "readBack": 6.661338147750939e-16,
+      "pipeline": 1.2027928776427013e-9
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Continuous",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.00005506155605764383,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.00005506155605764383
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.00005506155605764383,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.00005506155605764383
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Pair",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "no",
+      "problems": [],
+      "model": 0.00003255214334872747,
+      "unchanged": 0
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.00003670693585586804,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000036706935855690405
+     },
+     {
+      "segment": 3,
+      "written": "no",
+      "problems": [],
+      "model": 0.00003255214334805245,
+      "unchanged": 0
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Lone",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "no",
+      "problems": [],
+      "model": 0.00003255214334872747,
+      "unchanged": 0
+     },
+     {
+      "segment": 2,
+      "written": "in",
+      "problems": [],
+      "model": 0.000028220967591430224,
+      "readBack": 0
+     },
+     {
+      "segment": 3,
+      "written": "out",
+      "problems": [],
+      "model": 0.00004668497328674803,
+      "readBack": 5.551115123125783e-16
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Scope in",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "in",
+      "problems": [],
+      "model": 0.00004803516111688092,
+      "readBack": 1.1102230246251565e-16
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 0.000032552143348930764,
+      "unchanged": 0
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Scope out",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "out",
+      "problems": [],
+      "model": 0.00004803516111577564,
+      "readBack": 0
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 0.000032552143348930764,
+      "unchanged": 0
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Overshoot 1D",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.00007418204319304462,
+      "readBack": 0,
+      "pipeline": 0.00007418204319312357
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Overshoot path",
+    "kind": "spatial",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.00005699557017336095
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Overshoot path: Position: paths can't overshoot, so the curve was clipped at its ends."
+    ]
+   },
+   {
+    "name": "Overshoot colour",
+    "kind": "colour",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000053367063410617956
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Overshoot colour: Color: colours can't overshoot, so the curve was clipped at its ends."
+    ]
+   },
+   {
+    "name": "Bezier zero",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.00005506155605874912,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.00005506155605874912
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 0.00003258211435109055,
+      "unchanged": 0.0004442825910028806
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Selection across three layers",
+    "pass": true,
+    "problems": []
+   },
+   {
+    "name": "One undo step restores the keys",
+    "pass": true,
+    "problems": []
+   },
+   {
+    "name": "KeySnapshot: remove and restore each of 69 keys on 22 properties",
+    "pass": true,
+    "problems": [],
+    "notices": [
+     "Bezier zero: Bezier sides at influence 0 came back at 0.1, as expected"
+    ]
+   }
+  ],
+  "23.976": [
+   {
+    "name": "Opacity",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 3.772542811475432e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.772542811475432e-10
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 3.7725449431036394e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.7725431667468e-10
+     },
+     {
+      "segment": 3,
+      "written": "both",
+      "problems": [],
+      "model": 3.7725573776015154e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.7725538248878364e-10
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Rotation",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 1.5080497969729887e-9,
+      "readBack": 4.163336342344337e-17,
+      "pipeline": 1.5080500075041697e-9
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 1.5080463001816547e-9,
+      "readBack": 4.163336342344337e-17,
+      "pipeline": 1.5080462607070583e-9
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Scale",
+    "kind": "multi",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 1.202796440225029e-9,
+      "readBack": 3.3306690738754696e-16,
+      "pipeline": 1.202796262589345e-9
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 1.2027958481060827e-9,
+      "readBack": 3.3306690738754696e-16,
+      "pipeline": 1.2027963218012397e-9
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Position 2D",
+    "kind": "spatial",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000008524163588597363,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000008524163588597363
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.000011624258391829769,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000011624258391829769
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Position 3D",
+    "kind": "spatial",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.00000390039207263464,
+      "readBack": 3.3306690738754696e-16,
+      "pipeline": 0.000003900392072477004
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.000012190587496397297,
+      "readBack": 2.220446049250313e-16,
+      "pipeline": 0.000012190587496344947
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "X Position",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 3.772540172316699e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.772540172316699e-10
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 3.772555601244676e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.772555601244676e-10
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Y Position",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 1.5080505022524448e-9,
+      "readBack": 4.163336342344337e-17,
+      "pipeline": 1.5080510706866335e-9
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 1.5080416915225214e-9,
+      "readBack": 4.163336342344337e-17,
+      "pipeline": 1.5080416915225214e-9
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Colour",
+    "kind": "colour",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 1.202795178275658e-9,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 1.202795098092861e-9
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 1.2027921327854345e-9,
+      "readBack": 1.6653345369377348e-16,
+      "pipeline": 1.2027919686750085e-9
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Hold",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 3.772542811475432e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.772542811475432e-10
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 0,
+      "unchanged": 0
+     },
+     {
+      "segment": 3,
+      "written": "both",
+      "problems": [],
+      "model": 3.772541390389961e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.772541390389961e-10
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Hold: Opacity: held segments were left as is."
+    ]
+   },
+   {
+    "name": "Roving",
+    "kind": "spatial",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000011643836764124795,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000011643836763957608
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 0.000026210158564339232,
+      "unchanged": 0
+     },
+     {
+      "segment": 3,
+      "written": "no",
+      "problems": [],
+      "model": 0.00001866335968867516,
+      "unchanged": 0
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Roving: Position: segments next to roving keys were left as is."
+    ]
+   },
+   {
+    "name": "Expression",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 3.7725421798818895e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.7725421798818895e-10
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 3.7725271795352454e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.7725271795352454e-10
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Expression: Rotation: has an expression, which may change what plays."
+    ]
+   },
+   {
+    "name": "Time Remap",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 1.2027910889500504e-9,
+      "readBack": 3.3306690738754696e-16,
+      "pipeline": 1.2027912277279285e-9
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 1.2027958629090563e-9,
+      "readBack": 2.7755575615628914e-16,
+      "pipeline": 1.2027963069982661e-9
+     },
+     {
+      "segment": 3,
+      "written": "both",
+      "problems": [],
+      "model": 1.2027919609086817e-9,
+      "readBack": 4.440892098500626e-16,
+      "pipeline": 1.2027917637549785e-9
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Continuous",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 3.772549285309247e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.7725500748011757e-10
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 3.772548101071354e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.772548101071354e-10
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Pair",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "no",
+      "problems": [],
+      "model": 1.0959283258671348e-10,
+      "unchanged": 0
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 3.7725449431036394e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.7725431667468e-10
+     },
+     {
+      "segment": 3,
+      "written": "no",
+      "problems": [],
+      "model": 1.0959269047816633e-10,
+      "unchanged": 0
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Lone",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "no",
+      "problems": [],
+      "model": 1.0959283258671348e-10,
+      "unchanged": 0
+     },
+     {
+      "segment": 2,
+      "written": "in",
+      "problems": [],
+      "model": 4.831370858937589e-10,
+      "readBack": 0
+     },
+     {
+      "segment": 3,
+      "written": "out",
+      "problems": [],
+      "model": 7.107727739708025e-10,
+      "readBack": 1.6653345369377348e-16
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Scope in",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "in",
+      "problems": [],
+      "model": 3.6922563771844985e-10,
+      "readBack": 1.1102230246251565e-16
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 1.0959272995276276e-10,
+      "unchanged": 0
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Scope out",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "out",
+      "problems": [],
+      "model": 3.6922498145328416e-10,
+      "readBack": 0
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 1.0959272995276276e-10,
+      "unchanged": 0
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Overshoot 1D",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 6.896900630850825e-10,
+      "readBack": 0,
+      "pipeline": 6.896900828223806e-10
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Overshoot path",
+    "kind": "spatial",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000005500905688450075
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Overshoot path: Position: paths can't overshoot, so the curve was clipped at its ends."
+    ]
+   },
+   {
+    "name": "Overshoot colour",
+    "kind": "colour",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 5.294530369681638e-10
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Overshoot colour: Color: colours can't overshoot, so the curve was clipped at its ends."
+    ]
+   },
+   {
+    "name": "Bezier zero",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 3.772549285309247e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.7725500748011757e-10
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 5.234462767995346e-10,
+      "unchanged": 0.0004442825910028806
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Selection across three layers",
+    "pass": true,
+    "problems": []
+   },
+   {
+    "name": "One undo step restores the keys",
+    "pass": true,
+    "problems": []
+   },
+   {
+    "name": "KeySnapshot: remove and restore each of 69 keys on 22 properties",
+    "pass": true,
+    "problems": [],
+    "notices": [
+     "Time Remap: a Time Remap value was rounded to 1/4096 s, as expected",
+     "Bezier zero: Bezier sides at influence 0 came back at 0.1, as expected"
+    ]
+   }
+  ],
+  "29.97": [
+   {
+    "name": "Opacity",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 3.772541390389961e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.772541390389961e-10
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 3.7725484958173184e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.7725484958173184e-10
+     },
+     {
+      "segment": 3,
+      "written": "both",
+      "problems": [],
+      "model": 3.7725271795352454e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.772528955892085e-10
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Rotation",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 1.508046428474093e-9,
+      "readBack": 4.163336342344337e-17,
+      "pipeline": 1.508046428474093e-9
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 1.5080461620205674e-9,
+      "readBack": 4.163336342344337e-17,
+      "pipeline": 1.5080462607070583e-9
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Scale",
+    "kind": "multi",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 1.202796440225029e-9,
+      "readBack": 3.3306690738754696e-16,
+      "pipeline": 1.202796262589345e-9
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 1.2027958481060827e-9,
+      "readBack": 3.3306690738754696e-16,
+      "pipeline": 1.2027963218012397e-9
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Position 2D",
+    "kind": "spatial",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000008524163588597363,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000008524163588597363
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.000011624258393034279,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000011624258393034279
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Position 3D",
+    "kind": "spatial",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000003900392074250945,
+      "readBack": 4.440892098500626e-16,
+      "pipeline": 0.000003900392074250945
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 0.000012190587492251921,
+      "readBack": 4.440892098500626e-16,
+      "pipeline": 0.000012190587492251921
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "X Position",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 3.772538548219018e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.772537736170177e-10
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 3.772555601244676e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.772555601244676e-10
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Y Position",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 1.5080473758644074e-9,
+      "readBack": 4.163336342344337e-17,
+      "pipeline": 1.5080473758644074e-9
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 1.5080473758644074e-9,
+      "readBack": 4.163336342344337e-17,
+      "pipeline": 1.5080473758644074e-9
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Colour",
+    "kind": "colour",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 1.202795082673108e-9,
+      "readBack": 0,
+      "pipeline": 1.202795098092861e-9
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 1.2027919686750085e-9,
+      "readBack": 1.6653345369377348e-16,
+      "pipeline": 1.2027921294812501e-9
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Hold",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 3.772541390389961e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.772541390389961e-10
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 0,
+      "unchanged": 0
+     },
+     {
+      "segment": 3,
+      "written": "both",
+      "problems": [],
+      "model": 3.7725442325609035e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.772541390389961e-10
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Hold: Opacity: held segments were left as is."
+    ]
+   },
+   {
+    "name": "Roving",
+    "kind": "spatial",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000011643836764124795,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 0.000011643836763957608
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 0.00004131692598619444,
+      "unchanged": 0
+     },
+     {
+      "segment": 3,
+      "written": "no",
+      "problems": [],
+      "model": 0.000035152261274364555,
+      "unchanged": 0
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Roving: Position: segments next to roving keys were left as is."
+    ]
+   },
+   {
+    "name": "Expression",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 3.7725421798818895e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.7725421798818895e-10
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 3.772525600551388e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.772525600551388e-10
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Expression: Rotation: has an expression, which may change what plays."
+    ]
+   },
+   {
+    "name": "Time Remap",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 1.2027910889500504e-9,
+      "readBack": 3.3306690738754696e-16,
+      "pipeline": 1.2027912277279285e-9
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 1.2027960849536612e-9,
+      "readBack": 3.3306690738754696e-16,
+      "pipeline": 1.2027963069982661e-9
+     },
+     {
+      "segment": 3,
+      "written": "both",
+      "problems": [],
+      "model": 1.2027929466771977e-9,
+      "readBack": 5.551115123125783e-17,
+      "pipeline": 1.202792897388772e-9
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Continuous",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 3.772536653438389e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.772536653438389e-10
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 3.772548101071354e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.772548101071354e-10
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Pair",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "no",
+      "problems": [],
+      "model": 1.0959283258671348e-10,
+      "unchanged": 0
+     },
+     {
+      "segment": 2,
+      "written": "both",
+      "problems": [],
+      "model": 3.7725484958173184e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.7725484958173184e-10
+     },
+     {
+      "segment": 3,
+      "written": "no",
+      "problems": [],
+      "model": 1.0959304574953422e-10,
+      "unchanged": 0
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Lone",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "no",
+      "problems": [],
+      "model": 1.0959283258671348e-10,
+      "unchanged": 0
+     },
+     {
+      "segment": 2,
+      "written": "in",
+      "problems": [],
+      "model": 4.831333555443962e-10,
+      "readBack": 0
+     },
+     {
+      "segment": 3,
+      "written": "out",
+      "problems": [],
+      "model": 7.107725075172766e-10,
+      "readBack": 5.551115123125783e-17
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Scope in",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "in",
+      "problems": [],
+      "model": 3.6922563771844985e-10,
+      "readBack": 1.1102230246251565e-16
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 1.0959284837655206e-10,
+      "unchanged": 0
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Scope out",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "out",
+      "problems": [],
+      "model": 3.6922498145328416e-10,
+      "readBack": 0
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 1.0959284837655206e-10,
+      "unchanged": 0
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Overshoot 1D",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 6.896900433477842e-10,
+      "readBack": 3.885780586188048e-16,
+      "pipeline": 6.896900828223806e-10
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Overshoot path",
+    "kind": "spatial",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 0.000005500905688298492
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Overshoot path: Position: paths can't overshoot, so the curve was clipped at its ends."
+    ]
+   },
+   {
+    "name": "Overshoot colour",
+    "kind": "colour",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 5.294530369681638e-10
+     }
+    ],
+    "problems": [],
+    "notices": [
+     "Overshoot colour: Color: colours can't overshoot, so the curve was clipped at its ends."
+    ]
+   },
+   {
+    "name": "Bezier zero",
+    "kind": "1d",
+    "pass": true,
+    "rows": [
+     {
+      "segment": 1,
+      "written": "both",
+      "problems": [],
+      "model": 3.77254770632539e-10,
+      "readBack": 1.1102230246251565e-16,
+      "pipeline": 3.77254770632539e-10
+     },
+     {
+      "segment": 2,
+      "written": "no",
+      "problems": [],
+      "model": 5.234460737873242e-10,
+      "unchanged": 0.0004442825910028806
+     }
+    ],
+    "problems": [],
+    "notices": []
+   },
+   {
+    "name": "Selection across three layers",
+    "pass": true,
+    "problems": []
+   },
+   {
+    "name": "One undo step restores the keys",
+    "pass": true,
+    "problems": []
+   },
+   {
+    "name": "KeySnapshot: remove and restore each of 69 keys on 22 properties",
+    "pass": true,
+    "problems": [],
+    "notices": [
+     "Time Remap: a Time Remap value was rounded to 1/4096 s, as expected",
+     "Bezier zero: Bezier sides at influence 0 came back at 0.1, as expected"
+    ]
+   }
+  ]
+ }
+}

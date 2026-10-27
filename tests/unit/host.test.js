@@ -21,7 +21,7 @@ function jsxFiles(dir) {
 }
 
 test('host and launcher scripts parse as ES3', () => {
-  const files = [...jsxFiles(path.join(root, 'host')), ...jsxFiles(path.join(root, 'launchers'))];
+  const files = [...jsxFiles(path.join(root, 'host')), ...jsxFiles(path.join(root, 'launchers')), ...jsxFiles(path.join(root, 'tests', 'ae'))];
   assert.ok(files.length >= 5);
   for (const f of files) {
     assert.doesNotThrow(() => acorn.parse(fs.readFileSync(f, 'utf8'), { ecmaVersion: 3, allowReserved: true }),
@@ -35,7 +35,7 @@ test('host and launcher scripts parse as ES3', () => {
 test('host layer is global when loaded inside a function', () => {
   const sandbox = vm.createContext({});
   vm.runInContext('var $ = { global: this };', sandbox);
-  const files = ['json2.jsx', 'adapter.jsx', 'spikes/easeModel.jsx', 'spikes/popup.jsx'];
+  const files = ['json2.jsx', 'adapter.jsx', 'keySnapshot.jsx', 'spikes/easeModel.jsx', 'spikes/popup.jsx'];
   const body = files.map(f => fs.readFileSync(path.join(root, 'host', f), 'utf8')).join('\n');
   vm.runInContext(`(function AfterEaseLoad() {\n${body}\n}());`, sandbox);
   assert.equal(vm.runInContext('typeof AfterEase', sandbox), 'object');

@@ -1,0 +1,316 @@
+AfterEase phase 1 round trip, 2026-10-27T10:28:27.246Z
+After Effects 26.5x89 on Windows/64 10.0  
+Overall: PASS
+Tolerance: 0.1000% of each segment's change; 0.001 on read-back curves.
+model = AE samples vs core/segment.js from the stored keys; pipeline = vs the curve asked for;
+read-back = largest handle difference from the curve asked for; moved = change in unwritten segments.
+
+== 25 fps (frame 0.04 s): PASS, 24 of 24
+PASS  Opacity [1d]
+      segment 1 (wrote both): model 0.0026%, pipeline 0.0026%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0017%, pipeline 0.0017%, read-back 1.1e-16
+      segment 3 (wrote both): model 0.0026%, pipeline 0.0026%, read-back 1.1e-16
+PASS  Rotation [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 4.2e-17
+      segment 2 (wrote both): model 0.0030%, pipeline 0.0030%, read-back 4.2e-17
+PASS  Scale [multi]
+      segment 1 (wrote both): model 0.0025%, pipeline 0.0025%, read-back 5.6e-16
+      segment 2 (wrote both): model 0.0025%, pipeline 0.0025%, read-back 5.6e-16
+PASS  Position 2D [spatial]
+      segment 1 (wrote both): model 0.0026%, pipeline 0.0026%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0012%, pipeline 0.0012%, read-back 1.1e-16
+PASS  Position 3D [spatial]
+      segment 1 (wrote both): model 0.0017%, pipeline 0.0017%, read-back 6.1e-16
+      segment 2 (wrote both): model 0.0026%, pipeline 0.0026%, read-back 2.2e-16
+PASS  X Position [1d]
+      segment 1 (wrote both): model 0.0026%, pipeline 0.0026%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0026%, pipeline 0.0026%, read-back 1.1e-16
+PASS  Y Position [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 4.2e-17
+      segment 2 (wrote both): model 0.0079%, pipeline 0.0079%, read-back 4.2e-17
+PASS  Colour [colour]
+      segment 1 (wrote both): model 0.0025%, pipeline 0.0025%, read-back 0.0e+0
+      segment 2 (wrote both): model 0.0025%, pipeline 0.0025%, read-back 5.6e-17
+PASS  Hold [1d]
+      segment 1 (wrote both): model 0.0026%, pipeline 0.0026%, read-back 1.1e-16
+      segment 2 (not written): model 0.0000%, moved 0.0000%
+      segment 3 (wrote both): model 0.0026%, pipeline 0.0026%, read-back 1.1e-16
+      notice: Hold: Opacity: held segments were left as is.
+PASS  Roving [spatial]
+      segment 1 (wrote both): model 0.0029%, pipeline 0.0029%, read-back 1.1e-16
+      segment 2 (not written): model 0.0032%, moved 0.0000%
+      segment 3 (not written): model 0.0026%, moved 0.0000%
+      notice: Roving: Position: segments next to roving keys were left as is.
+PASS  Expression [1d]
+      segment 1 (wrote both): model 0.0026%, pipeline 0.0026%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0026%, pipeline 0.0026%, read-back 1.1e-16
+      notice: Expression: Rotation: has an expression, which may change what plays.
+PASS  Time Remap [1d]
+      segment 1 (wrote both): model 0.0025%, pipeline 0.0025%, read-back 2.2e-16
+      segment 2 (wrote both): model 0.0017%, pipeline 0.0017%, read-back 2.2e-16
+      segment 3 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+PASS  Continuous [1d]
+      segment 1 (wrote both): model 0.0026%, pipeline 0.0026%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0026%, pipeline 0.0026%, read-back 1.1e-16
+PASS  Pair [1d]
+      segment 1 (not written): model 0.0016%, moved 0.0000%
+      segment 2 (wrote both): model 0.0017%, pipeline 0.0017%, read-back 1.1e-16
+      segment 3 (not written): model 0.0016%, moved 0.0000%
+PASS  Lone [1d]
+      segment 1 (not written): model 0.0016%, moved 0.0000%
+      segment 2 (wrote in): model 0.0014%, read-back 0.0e+0
+      segment 3 (wrote out): model 0.0020%, read-back 1.7e-16
+PASS  Scope in [1d]
+      segment 1 (wrote in): model 0.0024%, read-back 1.1e-16
+      segment 2 (not written): model 0.0016%, moved 0.0000%
+PASS  Scope out [1d]
+      segment 1 (wrote out): model 0.0024%, read-back 0.0e+0
+      segment 2 (not written): model 0.0016%, moved 0.0000%
+PASS  Overshoot 1D [1d]
+      segment 1 (wrote both): model 0.0034%, pipeline 0.0034%, read-back 0.0e+0
+PASS  Overshoot path [spatial]
+      segment 1 (wrote both): model 0.0027%
+      notice: Overshoot path: Position: paths can't overshoot, so the curve was clipped at its ends.
+PASS  Overshoot colour [colour]
+      segment 1 (wrote both): model 0.0025%
+      notice: Overshoot colour: Color: colours can't overshoot, so the curve was clipped at its ends.
+PASS  Bezier zero [1d]
+      segment 1 (wrote both): model 0.0026%, pipeline 0.0026%, read-back 1.1e-16
+      segment 2 (not written): model 0.0016%, moved 0.0444%
+PASS  Selection across three layers
+PASS  One undo step restores the keys
+PASS  KeySnapshot: remove and restore each of 69 keys on 22 properties
+      notice: Bezier zero: Bezier sides at influence 0 came back at 0.1, as expected
+
+== 50 fps (frame 0.02 s): PASS, 24 of 24
+PASS  Opacity [1d]
+      segment 1 (wrote both): model 0.0055%, pipeline 0.0055%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0037%, pipeline 0.0037%, read-back 1.1e-16
+      segment 3 (wrote both): model 0.0055%, pipeline 0.0055%, read-back 1.1e-16
+PASS  Rotation [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 4.2e-17
+      segment 2 (wrote both): model 0.0119%, pipeline 0.0119%, read-back 4.2e-17
+PASS  Scale [multi]
+      segment 1 (wrote both): model 0.0055%, pipeline 0.0055%, read-back 3.9e-16
+      segment 2 (wrote both): model 0.0055%, pipeline 0.0055%, read-back 3.9e-16
+PASS  Position 2D [spatial]
+      segment 1 (wrote both): model 0.0059%, pipeline 0.0059%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0012%, pipeline 0.0012%, read-back 1.1e-16
+PASS  Position 3D [spatial]
+      segment 1 (wrote both): model 0.0038%, pipeline 0.0038%, read-back 3.3e-16
+      segment 2 (wrote both): model 0.0051%, pipeline 0.0051%, read-back 2.2e-16
+PASS  X Position [1d]
+      segment 1 (wrote both): model 0.0055%, pipeline 0.0055%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0055%, pipeline 0.0055%, read-back 1.1e-16
+PASS  Y Position [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 4.2e-17
+      segment 2 (wrote both): model 0.0079%, pipeline 0.0079%, read-back 4.2e-17
+PASS  Colour [colour]
+      segment 1 (wrote both): model 0.0055%, pipeline 0.0055%, read-back 0.0e+0
+      segment 2 (wrote both): model 0.0055%, pipeline 0.0055%, read-back 4.4e-16
+PASS  Hold [1d]
+      segment 1 (wrote both): model 0.0055%, pipeline 0.0055%, read-back 1.1e-16
+      segment 2 (not written): model 0.0000%, moved 0.0000%
+      segment 3 (wrote both): model 0.0055%, pipeline 0.0055%, read-back 1.1e-16
+      notice: Hold: Opacity: held segments were left as is.
+PASS  Roving [spatial]
+      segment 1 (wrote both): model 0.0067%, pipeline 0.0067%, read-back 1.1e-16
+      segment 2 (not written): model 0.0048%, moved 0.0000%
+      segment 3 (not written): model 0.0045%, moved 0.0000%
+      notice: Roving: Position: segments next to roving keys were left as is.
+PASS  Expression [1d]
+      segment 1 (wrote both): model 0.0055%, pipeline 0.0055%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0055%, pipeline 0.0055%, read-back 1.1e-16
+      notice: Expression: Rotation: has an expression, which may change what plays.
+PASS  Time Remap [1d]
+      segment 1 (wrote both): model 0.0055%, pipeline 0.0055%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0036%, pipeline 0.0036%, read-back 2.2e-16
+      segment 3 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 6.7e-16
+PASS  Continuous [1d]
+      segment 1 (wrote both): model 0.0055%, pipeline 0.0055%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0055%, pipeline 0.0055%, read-back 1.1e-16
+PASS  Pair [1d]
+      segment 1 (not written): model 0.0033%, moved 0.0000%
+      segment 2 (wrote both): model 0.0037%, pipeline 0.0037%, read-back 1.1e-16
+      segment 3 (not written): model 0.0033%, moved 0.0000%
+PASS  Lone [1d]
+      segment 1 (not written): model 0.0033%, moved 0.0000%
+      segment 2 (wrote in): model 0.0028%, read-back 0.0e+0
+      segment 3 (wrote out): model 0.0047%, read-back 5.6e-16
+PASS  Scope in [1d]
+      segment 1 (wrote in): model 0.0048%, read-back 1.1e-16
+      segment 2 (not written): model 0.0033%, moved 0.0000%
+PASS  Scope out [1d]
+      segment 1 (wrote out): model 0.0048%, read-back 0.0e+0
+      segment 2 (not written): model 0.0033%, moved 0.0000%
+PASS  Overshoot 1D [1d]
+      segment 1 (wrote both): model 0.0074%, pipeline 0.0074%, read-back 0.0e+0
+PASS  Overshoot path [spatial]
+      segment 1 (wrote both): model 0.0057%
+      notice: Overshoot path: Position: paths can't overshoot, so the curve was clipped at its ends.
+PASS  Overshoot colour [colour]
+      segment 1 (wrote both): model 0.0053%
+      notice: Overshoot colour: Color: colours can't overshoot, so the curve was clipped at its ends.
+PASS  Bezier zero [1d]
+      segment 1 (wrote both): model 0.0055%, pipeline 0.0055%, read-back 1.1e-16
+      segment 2 (not written): model 0.0033%, moved 0.0444%
+PASS  Selection across three layers
+PASS  One undo step restores the keys
+PASS  KeySnapshot: remove and restore each of 69 keys on 22 properties
+      notice: Bezier zero: Bezier sides at influence 0 came back at 0.1, as expected
+
+== 23.976 fps (frame 0.04170837504171 s): PASS, 24 of 24
+PASS  Opacity [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      segment 3 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+PASS  Rotation [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 4.2e-17
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 4.2e-17
+PASS  Scale [multi]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 3.3e-16
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 3.3e-16
+PASS  Position 2D [spatial]
+      segment 1 (wrote both): model 0.0009%, pipeline 0.0009%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0012%, pipeline 0.0012%, read-back 1.1e-16
+PASS  Position 3D [spatial]
+      segment 1 (wrote both): model 0.0004%, pipeline 0.0004%, read-back 3.3e-16
+      segment 2 (wrote both): model 0.0012%, pipeline 0.0012%, read-back 2.2e-16
+PASS  X Position [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+PASS  Y Position [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 4.2e-17
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 4.2e-17
+PASS  Colour [colour]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.7e-16
+PASS  Hold [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      segment 2 (not written): model 0.0000%, moved 0.0000%
+      segment 3 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      notice: Hold: Opacity: held segments were left as is.
+PASS  Roving [spatial]
+      segment 1 (wrote both): model 0.0012%, pipeline 0.0012%, read-back 1.1e-16
+      segment 2 (not written): model 0.0026%, moved 0.0000%
+      segment 3 (not written): model 0.0019%, moved 0.0000%
+      notice: Roving: Position: segments next to roving keys were left as is.
+PASS  Expression [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      notice: Expression: Rotation: has an expression, which may change what plays.
+PASS  Time Remap [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 3.3e-16
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 2.8e-16
+      segment 3 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 4.4e-16
+PASS  Continuous [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+PASS  Pair [1d]
+      segment 1 (not written): model 0.0000%, moved 0.0000%
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      segment 3 (not written): model 0.0000%, moved 0.0000%
+PASS  Lone [1d]
+      segment 1 (not written): model 0.0000%, moved 0.0000%
+      segment 2 (wrote in): model 0.0000%, read-back 0.0e+0
+      segment 3 (wrote out): model 0.0000%, read-back 1.7e-16
+PASS  Scope in [1d]
+      segment 1 (wrote in): model 0.0000%, read-back 1.1e-16
+      segment 2 (not written): model 0.0000%, moved 0.0000%
+PASS  Scope out [1d]
+      segment 1 (wrote out): model 0.0000%, read-back 0.0e+0
+      segment 2 (not written): model 0.0000%, moved 0.0000%
+PASS  Overshoot 1D [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 0.0e+0
+PASS  Overshoot path [spatial]
+      segment 1 (wrote both): model 0.0006%
+      notice: Overshoot path: Position: paths can't overshoot, so the curve was clipped at its ends.
+PASS  Overshoot colour [colour]
+      segment 1 (wrote both): model 0.0000%
+      notice: Overshoot colour: Color: colours can't overshoot, so the curve was clipped at its ends.
+PASS  Bezier zero [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      segment 2 (not written): model 0.0000%, moved 0.0444%
+PASS  Selection across three layers
+PASS  One undo step restores the keys
+PASS  KeySnapshot: remove and restore each of 69 keys on 22 properties
+      notice: Time Remap: a Time Remap value was rounded to 1/4096 s, as expected
+      notice: Bezier zero: Bezier sides at influence 0 came back at 0.1, as expected
+
+== 29.97 fps (frame 0.03336670003337 s): PASS, 24 of 24
+PASS  Opacity [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      segment 3 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+PASS  Rotation [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 4.2e-17
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 4.2e-17
+PASS  Scale [multi]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 3.3e-16
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 3.3e-16
+PASS  Position 2D [spatial]
+      segment 1 (wrote both): model 0.0009%, pipeline 0.0009%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0012%, pipeline 0.0012%, read-back 1.1e-16
+PASS  Position 3D [spatial]
+      segment 1 (wrote both): model 0.0004%, pipeline 0.0004%, read-back 4.4e-16
+      segment 2 (wrote both): model 0.0012%, pipeline 0.0012%, read-back 4.4e-16
+PASS  X Position [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+PASS  Y Position [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 4.2e-17
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 4.2e-17
+PASS  Colour [colour]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 0.0e+0
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.7e-16
+PASS  Hold [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      segment 2 (not written): model 0.0000%, moved 0.0000%
+      segment 3 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      notice: Hold: Opacity: held segments were left as is.
+PASS  Roving [spatial]
+      segment 1 (wrote both): model 0.0012%, pipeline 0.0012%, read-back 1.1e-16
+      segment 2 (not written): model 0.0041%, moved 0.0000%
+      segment 3 (not written): model 0.0035%, moved 0.0000%
+      notice: Roving: Position: segments next to roving keys were left as is.
+PASS  Expression [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      notice: Expression: Rotation: has an expression, which may change what plays.
+PASS  Time Remap [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 3.3e-16
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 3.3e-16
+      segment 3 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 5.6e-17
+PASS  Continuous [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+PASS  Pair [1d]
+      segment 1 (not written): model 0.0000%, moved 0.0000%
+      segment 2 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      segment 3 (not written): model 0.0000%, moved 0.0000%
+PASS  Lone [1d]
+      segment 1 (not written): model 0.0000%, moved 0.0000%
+      segment 2 (wrote in): model 0.0000%, read-back 0.0e+0
+      segment 3 (wrote out): model 0.0000%, read-back 5.6e-17
+PASS  Scope in [1d]
+      segment 1 (wrote in): model 0.0000%, read-back 1.1e-16
+      segment 2 (not written): model 0.0000%, moved 0.0000%
+PASS  Scope out [1d]
+      segment 1 (wrote out): model 0.0000%, read-back 0.0e+0
+      segment 2 (not written): model 0.0000%, moved 0.0000%
+PASS  Overshoot 1D [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 3.9e-16
+PASS  Overshoot path [spatial]
+      segment 1 (wrote both): model 0.0006%
+      notice: Overshoot path: Position: paths can't overshoot, so the curve was clipped at its ends.
+PASS  Overshoot colour [colour]
+      segment 1 (wrote both): model 0.0000%
+      notice: Overshoot colour: Color: colours can't overshoot, so the curve was clipped at its ends.
+PASS  Bezier zero [1d]
+      segment 1 (wrote both): model 0.0000%, pipeline 0.0000%, read-back 1.1e-16
+      segment 2 (not written): model 0.0000%, moved 0.0444%
+PASS  Selection across three layers
+PASS  One undo step restores the keys
+PASS  KeySnapshot: remove and restore each of 69 keys on 22 properties
+      notice: Time Remap: a Time Remap value was rounded to 1/4096 s, as expected
+      notice: Bezier zero: Bezier sides at influence 0 came back at 0.1, as expected
