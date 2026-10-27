@@ -2,7 +2,7 @@
 
 An easing panel for Adobe After Effects 2024 to 2026, built as a CEP extension. The full plan is in [SPEC.md](SPEC.md).
 
-**Current state: phase 0 (scaffold and spikes).** The panel is a diagnostics page for the three phase 0 spikes. How to run them, and space for the results, is in [SPIKES.md](SPIKES.md).
+**Current state: phase 0 (scaffold and spikes).** The panel is a diagnostics page for the three phase 0 spikes. How to run them, and space for the results, is in [SPIKES.md](SPIKES.md). To pick the work up on a machine with After Effects, start with [HANDOVER.md](HANDOVER.md).
 
 ## Layout
 
