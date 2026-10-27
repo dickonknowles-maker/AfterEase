@@ -28,7 +28,7 @@ Restart AE, then open **Window > Extensions (Legacy) > AfterEase**. The Connecti
 
 | Machine | OS | AE version | Panel listed? | Panel loads? | Round trip | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| | | | | | | |
+| | Windows 11 | | | | | |
 
 If the panel is missing or blank, the CEP logs say why: `%TEMP%\CEP*.log` on Windows, `~/Library/Logs/CSXS/` on macOS. Look for "Unsupported Manifest version". The manifest uses `ExtensionManifest Version="7.0"`, the usual value for CEP 9 to 12. If CEP 12 rejects it, that is the reported bug and I need to know before phase 1.
 
@@ -81,7 +81,7 @@ CEP only sees the pointer while it is over the panel, so the spike has two parts
 1. Press **Read cursor ×10** and note the timings in the log.
 2. For each route, press **Open at cursor in 2 s**, then move the pointer over the Timeline. Press **Yes**, **Offset** or **Did not open** to record the outcome in the log.
 3. Bind `launchers/AfterEase Spike Popup.jsx` to a key and try it with the pointer over the Timeline. This is the real flow: one shortcut and the popup appears.
-4. If you can, repeat at 100% and 150% Windows display scaling, and on a second monitor.
+4. Repeat at 100% and 150% Windows 11 display scaling, and on a second monitor if the studio uses them.
 
 **Results.**
 
@@ -97,7 +97,6 @@ CEP only sees the pointer while it is over the panel, so the spike has two parts
 | Cursor read | First read, ms | Later reads, ms |
 | --- | --- | --- |
 | Windows (PowerShell) | | |
-| macOS (osascript) | | |
 
 ## Spike 3: ease model
 
@@ -159,10 +158,12 @@ These are small calls I made that go beyond the spec. Each is easy to change.
 - **Host calls.** Everything goes through `AfterEase.call(name, json)`, which returns `{ok, result | error}`. The five adapter functions from the spec exist as stubs that throw "not implemented yet (phase 1)".
 - **AE version range.** The manifest uses `[24.0,26.99]`, which covers AE 2024 to 2026.
 
-## Open questions from SPEC.md (still open)
+## Answers to the open questions in SPEC.md
 
-- In-house only, or distributed or sold?
-- Which AE versions run on studio machines, and are any of them Macs?
-- Is the cursor popup essential for v1? Spike 2 decides how much it costs.
-- Any studio-standard curves to ship as presets?
-- Is **AfterEase** the name?
+| Question | Answer | What it changes |
+| --- | --- | --- |
+| In-house, distributed or sold? | In-house | Phase 7 is a studio install script only: no signed ZXP, no licensing. The feature set doesn't need to track QuickEase. |
+| AE versions and OS | Latest AE on Windows 11 | Testing targets the latest AE on Windows 11 only. AE 2024 and 2025 and macOS drop out of the acceptance checks. The manifest still accepts AE 2024 to 2026, which costs nothing. The macOS cursor helper stays, but nobody will test it. |
+| Is the cursor popup essential for v1? | Would be good | Phase 6 builds it if spike 2 finds a working route. If not, the fallback (a compact floating panel plus hotkeys) is acceptable, and the C++ helper is not worth building for it. |
+| Studio-standard presets? | No | Built-ins are the generic set from SPEC.md: linear, and ease in, out and in-out at a few strengths. |
+| Name | Not answered yet | Still **AfterEase**. |
