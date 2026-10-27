@@ -1,0 +1,15 @@
+AfterEase phase 0 log
+
+09:56:50.174  Panel loaded: AEFT 26.5, locale en_US, extension at C:/Users/dicko/AppData/Roaming/Adobe/CEP/extensions/com.afterease
+09:56:50.179  Host layer loaded
+09:56:50.185  Round trip OK in 5.2 ms. AE 26.5x89 (26.5x89), Windows/64 10.0  , ExtendScript 4.5.6, native JSON before polyfill: true
+09:57:15.203  Spike 1: launcher event “popup” received 5 ms after the script sent it
+09:57:15.401  Spike 2: cursor at 637, 1541 (read in 197.3 ms); opening scriptui
+09:57:15.418  Spike 2: ScriptUI palette asked for 637, 1541, location now 637, 1541, frame bounds 629, 1510, 831, 1649
+09:57:28.689  Spike 1: launcher event “popup” received 8 ms after the script sent it
+09:57:28.691  Spike 2: cursor at 779, 1690 (read in 1.2 ms); opening scriptui
+09:57:28.713  Spike 2: ScriptUI palette asked for 779, 1690, location now 779, 1690, frame bounds 771, 1659, 973, 1798
+09:59:06.129  Spike 1: launcher event “popup” received 3 ms after the script sent it
+09:59:06.130  Spike 2: cursor at 583, 1779 (read in 0.9 ms); opening cep
+09:59:06.421  Spike 2: CEP popup window loaded
+09:59:06.570  Spike 2: CEP popup asked for 583, 1779; screenX/Y before 2458, 1036, after moveTo 2458, 1036; window 220×150; devicePixelRatio 1; 439 ms from cursor read to placed

@@ -1,8 +1,8 @@
 # Phase 0 spikes
 
-**Status (27 Oct 2026): run in After Effects 26.5 on Dickon's Windows 11 machine.** The panel loads on a fresh install, and spike 3 is complete. Spikes 1 and 2 are done except for the checks that need a person at the keyboard: binding the shortcuts, keyboard focus and Esc, the panel closed, and 150% scaling. Those are marked **Pending (Dickon)** below.
+**Status (27 Oct 2026): run in After Effects 26.5 on Dickon's Windows 11 machine. The gate's conditions are met:** the panel loads on a fresh install, and the results of all three spikes are in. Only the optional 150% scaling check was skipped.
 
-A Claude session ran everything else, driving AE through the panel's DevTools port with `scripts/ae.mjs`. Running the spikes found three harness bugs, fixed under "Decisions made in phase 0", and several AE behaviours worth knowing, listed under "Findings for phase 1 onwards". The clean run's log and raw spike 3 data are in `tests/ae/phase0/`.
+A Claude session ran most of it, driving AE through the panel's DevTools port with `scripts/ae.mjs`. Dickon then ran the hands-on checks: the installer, binding and pressing the shortcuts, the panel closed, and the popup's keyboard behaviour. Running the spikes found three harness bugs, fixed under "Decisions made in phase 0", and several AE behaviours worth knowing, listed under "Findings for phase 1 onwards". The logs and raw spike 3 data are in `tests/ae/phase0/`: the 09-41 files are the automated run, the 09-59 file is Dickon's.
 
 | Item | Value |
 | --- | --- |
@@ -41,16 +41,23 @@ Restart AE, then open **Window > Extensions (Legacy) > AfterEase**. The Connecti
 **Verdict.** The fresh install works on Windows. CEP 12.0.1 accepts `ExtensionManifest Version="7.0"`: its log says the manifest "contains '2' valid extensions for this host", with no "Unsupported Manifest version". The July 2026 report does not apply to AE 26.5 on Windows. The Copy to Points panel on the same machine uses manifest 7.0 too.
 
 - **Panel listed:** `app.findMenuCommandId('AfterEase')` returned 5023, and running that command opened the panel.
-- **`install-dev.ps1` has still not been run.** The Claude session's permission checker blocked it, because it sets `PlayerDebugMode` and runs with `-ExecutionPolicy Bypass`. The session made the same plain copy by hand instead. `PlayerDebugMode` was already `"1"` under `HKCU\Software\Adobe\CSXS.12`, which is the key AE 26.5 reads. `CSXS.11` does not exist on this machine. CEP logging was raised from `LogLevel` 1 to 6 for the run.
+- **`install-dev.ps1` works.** The Claude session's permission checker blocked it from running the script, because it sets `PlayerDebugMode` and runs with `-ExecutionPolicy Bypass`, so the session made the same plain copy by hand. Dickon then ran the script himself. It recopied the extension and created the `CSXS.11` key, and the panel loaded afterwards with the round trip OK in 5.2 ms. `PlayerDebugMode` had already been `"1"` under `CSXS.12`, the key AE 26.5 reads.
+- CEP logging was raised from `LogLevel` 1 to 6 for the run, then put back to 1.
 
 If the panel is missing or blank, the CEP logs say why: `%TEMP%\CEP*.log` on Windows, `~/Library/Logs/CSXS/` on macOS. Look for "Unsupported Manifest version". The manifest uses `ExtensionManifest Version="7.0"`, the usual value for CEP 9 to 12. If CEP 12 rejects it, that is the reported bug and I need to know before phase 1.
 
 ## Spike 1: hotkey
 
-**Verdict.** The event route works: a script's `CSXSEvent` reaches the open panel in 20 to 27 ms. Scripts placed in the per-user Scripts folder appear under File > Scripts, so the launchers need no admin rights. Whether the Keyboard Shortcuts editor lists them is still to be confirmed by Dickon. Phase 6 should ship one launcher per action in the per-user Scripts folder, each sending a CSXS event.
+**Verdict.** Hotkeys work. The Keyboard Shortcuts editor lists scripts from the per-user Scripts folder, so the launchers need no admin rights. With a real shortcut, the panel gets the event 3 to 8 ms after the script starts, including with the pointer over the Timeline. If the panel is closed, nothing happens and no error appears; the event is simply lost.
+
+The catch is how AE stores the binding: by the script's position in File > Scripts, not by its name. Phase 6 should plan around three consequences:
+
+- **Bindings can move.** File > Scripts lists AE's own 14 scripts from the install folder first, then the per-user folder, alphabetically. Dickon's shortcuts were saved as `ExecuteScriptMenuItem15` and `16` in a new set, `aeks\Custom.txt`. Adding or removing a script in either folder renumbers the menu, so a shortcut can silently move to a different script.
+- **Few slots.** The shortcuts file has slots 01 to 20 only, and AE's own scripts fill 01 to 14. That probably leaves 6 for AfterEase, not enough for the spec's "apply last curve" plus "preset 1 to 9" as separate scripts. Phase 6 should use one or two launchers (open the popup, apply last curve) and choose presets with number keys inside the popup.
+- **Closed panel.** If hotkeys must work with the panel closed, phase 6 needs a hidden background extension that starts with AE and listens instead.
 
 - **Where the launchers went.** They were copied to `%APPDATA%\Adobe\After Effects\26.5\Scripts\`, not `Program Files`. AE lists that folder under File > Scripts.
-- **How the event was tested.** The launchers ran in AE's main script engine through `$.evalFile`, the same engine File > Scripts uses. The real key press is Dickon's step.
+- **How the event was tested.** The Claude session first ran the launchers in AE's main script engine through `$.evalFile` (20 to 27 ms to the panel). Dickon then pressed the real shortcuts (3 to 8 ms). His Timeline and Composition viewer presses (step 4) aren't in the saved log, because closing the panel in step 5 cleared it; his step 6 presses are.
 - **`ExecuteScriptMenuItem01` to `20`** exist in AE 26.5's shortcuts file (`aeks\After Effects Default.txt`), so that name, cited from memory, is right.
 - **`-ro` is unreliable here.** Handing a script to the running AE with `AfterFX.exe -ro` worked once, straight after launch. Later hand-offs, made while AE sat behind another app, did not run within a minute. One ran at some point afterwards.
 
@@ -73,15 +80,17 @@ If the panel is missing or blank, the CEP logs say why: `%TEMP%\CEP*.log` on Win
 | Check | Result |
 | --- | --- |
 | Scripts appear under File > Scripts | Yes, from the per-user Scripts folder: `findMenuCommandId` gives 8115 for "AfterEase Spike Ping.jsx" and 8116 for "AfterEase Spike Popup.jsx" (the name needs the `.jsx`). `Program Files` not tried. |
-| Scripts appear in the Keyboard Shortcuts editor | Pending (Dickon) |
-| Shortcut runs the script | Pending (Dickon) |
-| Panel receives the event, delay in ms | Yes, 20 to 27 ms over 13 events in two runs. Needed fix 3: event data arrives base64-encoded. |
-| Works while the Timeline has focus | Pending (Dickon) |
-| Behaviour with the panel closed | Pending (Dickon) |
+| Scripts appear in the Keyboard Shortcuts editor | Yes (Dickon). Saved by menu position: `ExecuteScriptMenuItem15` = Ctrl+Alt+Shift+1, `ExecuteScriptMenuItem16` = Ctrl+Alt+Shift+2 |
+| Shortcut runs the script | Yes (Dickon) |
+| Panel receives the event, delay in ms | Yes: 3 to 8 ms from a real shortcut. 20 to 27 ms when run through `$.evalFile` from the panel. Needed fix 3: event data arrives base64-encoded. |
+| Works while the Timeline has focus | Yes (Dickon), and with the Composition viewer focused |
+| Behaviour with the panel closed | Nothing happens, no error (Dickon). The event is lost. |
 
 ## Spike 2: popup at the cursor
 
-**Verdict.** Route B, the ScriptUI palette, places itself exactly at the pointer at 100% scaling. Route A, the CEP modeless window, can't be placed: `window.moveTo` and `moveBy` do nothing, it opened in the middle of the screen each time, and it takes about half a second to load. Reading the cursor through a long-lived PowerShell process costs about 200 ms once, then about 0.1 ms per read. Unless Dickon's focus and Esc checks rule it out, phase 6 should build the popup as a ScriptUI palette, with the cursor helper started with the panel. No C++ helper is needed.
+**Verdict.** Route B, the ScriptUI palette, places itself exactly at the pointer at 100% scaling. Route A, the CEP modeless window, can't be placed: `window.moveTo` and `moveBy` do nothing, it opened in the middle of the screen each time, and it takes about half a second to load. Reading the cursor through a long-lived PowerShell process costs about 200 ms once, then about 0.1 ms per read. Phase 6 should build the popup as a ScriptUI palette, with the cursor helper started with the panel. No C++ helper is needed.
+
+Keyboard focus is the one weak point. The first time Dickon opened the palette from the shortcut, Esc did not close it; the second time it did. The spike palette neither takes focus explicitly nor handles Esc, so phase 6 should make the palette active when it opens (`active = true`) and close it on Esc with its own key handler.
 
 - **Where the palette lands.** ScriptUI's `location` places the palette's content area, not its frame. The content's top-left corner lands exactly on the pointer, and Windows' own rectangle for the window (`GetWindowRect`) matched ScriptUI's `frameBounds`. The title bar and border sit 31 px above and 8 px left of that point. Phase 6 should use a borderless palette, or offset it, so the curve sits under the pointer.
 - **Route A details.** A CEP window opens wherever CEP chooses (here the screen centre: 2450, 1005, size 236×189). Its "ready" event and the panel's messages do get through once fix 3 is in.
@@ -113,11 +122,11 @@ CEP only sees the pointer while it is over the panel, so the spike has two parts
 | Check | Route A: CEP window | Route B: ScriptUI palette |
 | --- | --- | --- |
 | Opens at all | Yes | Yes |
-| Lands at the pointer (100% scaling) | No: `moveTo` is ignored, so it opens at the screen centre | Yes, exactly: content top-left at the pointer, title bar above it |
-| Lands at the pointer (150% scaling) | Not tested | Pending (Dickon, optional) |
+| Lands at the pointer (100% scaling) | No: `moveTo` is ignored, so it opens at the screen centre (confirmed by Dickon) | Yes, exactly: content top-left at the pointer, title bar above it (confirmed by Dickon) |
+| Lands at the pointer (150% scaling) | Not tested | Not tested (optional, skipped) |
 | Second monitor | Not applicable: one monitor | Not applicable: one monitor |
-| Shortcut to visible, in ms | About 815: 25 for the event, then about 790 from cursor read to placed | About 45 with the cursor helper running: 22 for the event, under 1 for the cursor, 23 for the palette. Add about 190 on the first read. Script start to visible only; key press to script start not measured. |
-| Takes keyboard focus / Esc closes it | Pending (Dickon) | Pending (Dickon) |
+| Shortcut to visible, in ms | About 440 from a real shortcut: 3 for the event, then 439 from cursor read to placed (still at the screen centre) | About 30 from a real shortcut with the cursor helper running: 5 to 8 for the event, about 1 for the cursor, about 20 for the palette. Add about 200 on the first read. Key press to script start not measured. |
+| Takes keyboard focus / Esc closes it | No problem reported (Dickon) | Not reliably: Esc did not close it the first time, did the second (Dickon) |
 
 | Cursor read | First read, ms | Later reads, ms |
 | --- | --- | --- |
@@ -201,6 +210,7 @@ Tooling added: `scripts/ae.mjs` takes the shared lock `D:\Plugins\AE\ae-in-use.t
 
 ## Findings for phase 1 onwards
 
+- **Script shortcuts are bound by menu position** (`ExecuteScriptMenuItem01` to `20`), and AE's own 14 scripts come first. See the spike 1 verdict before designing phase 6 hotkeys or the phase 7 install script.
 - **Frame grid.** AE's 23.976 and 29.97 fps comps step exactly 1/23.976 s and 1/29.97 s per frame, and AE moves key times onto its grid. Take frame maths from `comp.frameDuration`, never from 1001-based rates.
 - **2D Position is 3D to the API.** On a 2D layer, `keyValue`, `valueAtTime` and the spatial tangents all have three values, with z = 0. `readSelection` and `writeKeys` must expect that.
 - **AE keeps eases as written.** Negative speeds and influences that put x1 past x2 are stored and played back unchanged. `core/` needs no clamping for them.
